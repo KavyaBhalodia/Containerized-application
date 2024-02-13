@@ -10,11 +10,7 @@ resource "aws_ecr_repository" "images" {
     scan_on_push = true
   }
 }
-locals {
-  ecr_reg   = "ap-south-1"
-  ecr_repo  = "images"
-  image_tag = "latest"
-}
+resource "null_resource" "docker_packaging" {
 
 provisioner "local-exec" {
 	command = "bash script.sh ${aws_ecr_repository.images.repository_url}"
@@ -27,10 +23,4 @@ provisioner "local-exec" {
   depends_on = [
     aws_ecr_repository.images,
   ]
-}
-
-	
-output "url" {
-  value = aws_ecr_repository.images.repository_url
-
 }
