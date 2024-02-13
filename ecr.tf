@@ -15,35 +15,22 @@ locals {
   ecr_repo  = "images"
   image_tag = "latest"
 }
-# resource "null_resource" "docker_packaging" {
 
-#   provisioner "local-exec" {
-
-#     command = "docker build -t ${aws_ecr_repository.images.repository_url}:latest -f Dockerfile ."
-
-#   }
-
-#   provisioner "local-exec" {
-#     command = "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com"
-#   }
-#   provisioner "local-exec" {
-#     command = "docker push 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:latest"
-#   }
-# provisioner "local-exec" {
-# 	command = "bash script.sh ${aws_ecr_repository.images.repository_url}"
-# }
+provisioner "local-exec" {
+	command = "bash script.sh ${aws_ecr_repository.images.repository_url}"
+}
 	
-# 	  triggers = {
-# 	    "run_at" = timestamp()
-# 	  }
+	  triggers = {
+	    "run_at" = timestamp()
+	  }
 
-#   depends_on = [
-#     aws_ecr_repository.images,
-#   ]
-# }
+  depends_on = [
+    aws_ecr_repository.images,
+  ]
+}
 
 	
-# output "url" {
-#   value = aws_ecr_repository.images.repository_url
+output "url" {
+  value = aws_ecr_repository.images.repository_url
 
-# }
+}
