@@ -10,6 +10,7 @@ resource "aws_security_group_rule" "load-balancer-sg-rule" {
   to_port           = 0
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
+developer
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.load-balancer-sg.id
 }
@@ -20,6 +21,8 @@ resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
+  ipv6_cidr_blocks = ["::/0"]
+main
   security_group_id = aws_security_group.load-balancer-sg.id
 }
 
@@ -29,6 +32,7 @@ resource "aws_security_group" "ecs-sg" {
   vpc_id      = aws_vpc.main.id
 }
 resource "aws_security_group_rule" "ecs-sg-rule" {
+developer
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0
@@ -45,3 +49,12 @@ resource "aws_security_group_rule" "ecs-sg-rule-1" {
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.ecs-sg.id
 }
+
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "all"
+  source_security_group_id = aws_security_group.load-balancer-sg.id
+  security_group_id = aws_security_group.ecs-sg.id
+}
+main

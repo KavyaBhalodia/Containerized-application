@@ -13,7 +13,11 @@ resource "aws_subnet" "public-subnet" {
   count                   = length(var.public_subnet_cidr)
   cidr_block              = element(var.public_subnet_cidr, count.index)
   map_public_ip_on_launch = true
+developer
   availability_zone       = element(var.az, count.index)
+
+  availability_zone = element(var.az,count.index)
+ main
 
   tags = {
     Name = "public-subnet-${count.index + 1}"
@@ -21,10 +25,17 @@ resource "aws_subnet" "public-subnet" {
 }
 //private-subnets(2)
 resource "aws_subnet" "private-subnet" {
+developer
   vpc_id            = aws_vpc.main.id
   count             = length(var.private_subnet_cidr)
   cidr_block        = element(var.private_subnet_cidr, count.index)
   availability_zone = element(var.az, count.index)
+
+  vpc_id     = aws_vpc.main.id
+  count      = length(var.private_subnet_cidr)
+  cidr_block = element(var.private_subnet_cidr,count.index)
+  availability_zone = element(var.az,count.index)
+ main
   tags = {
     Name = "private-subnet-${count.index + 1}"
   }
@@ -82,12 +93,20 @@ resource "aws_route_table" "private-rt" {
 //public-rt association
 resource "aws_route_table_association" "public-rt-association" {
   count          = length(var.public_subnet_cidr)
+ developer
   subnet_id      = element(aws_subnet.public-subnet.*.id, count.index)
+
+  subnet_id      = element(aws_subnet.public-subnet.*.id,count.index)
+ main
   route_table_id = aws_route_table.public-rt.id
 }
 //private-rt association
 resource "aws_route_table_association" "private-rt-association" {
   count          = length(var.private_subnet_cidr)
+ developer
   subnet_id      = element(aws_subnet.private-subnet.*.id, count.index)
+
+  subnet_id      = element(aws_subnet.private-subnet.*.id,count.index)
+main
   route_table_id = aws_route_table.private-rt.id
 }

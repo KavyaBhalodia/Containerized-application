@@ -1,6 +1,7 @@
 
 provider "aws" {
   region = "ap-south-1"
+developer
 }
 terraform {
   required_providers {
@@ -19,3 +20,6 @@ provider "docker" {
   host = "npipe:////.//pipe//docker_engine"
 }
 
+
+}
+ main

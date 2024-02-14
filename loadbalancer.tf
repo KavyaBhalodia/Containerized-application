@@ -1,4 +1,5 @@
 resource "aws_lb" "ecs-alb" {
+developer
   name                       = "ecs-alb"
   internal                   = false
   load_balancer_type         = "application"
@@ -6,6 +7,18 @@ resource "aws_lb" "ecs-alb" {
   subnets                    = aws_subnet.public-subnet.*.id
   enable_deletion_protection = false
 
+
+  name               = "ecs-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.load-balancer-sg.id]
+  subnets = aws_subnet.public-subnet.*.id
+  enable_deletion_protection = true
+
+  tags = {
+    Environment = "production"
+  }
+main
 }
 //target-grp
 resource "aws_lb_target_group" "ecs-target-grp" {
@@ -14,6 +27,7 @@ resource "aws_lb_target_group" "ecs-target-grp" {
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
+developer
 
 
 }
@@ -30,5 +44,5 @@ resource "aws_lb_listener" "example" {
 
 }
 
-
-
+}
+main
