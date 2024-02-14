@@ -1,5 +1,4 @@
 #!/bin/bash
-
 repository_url=$1
 
 # Build the Docker image locally
