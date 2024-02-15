@@ -10,6 +10,5 @@ aws ecr get-login-password --region ap-south-1 | docker login --username AWS --p
 
 # Tag the Docker image
 docker tag hello-world:latest $repository_url:latest
-
 # Push the Docker image to ECR
 docker push $repository_url:latest
