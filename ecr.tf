@@ -15,7 +15,7 @@ resource "null_resource" "docker_packaging" {
 
   provisioner "local-exec" {
 
-    command = "bash script.sh ${aws_ecr_repository.images.repository_url}"
+    command = "bash script1.sh ${aws_ecr_repository.images.repository_url}"
 
   }
 
