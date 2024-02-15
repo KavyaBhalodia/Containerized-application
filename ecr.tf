@@ -15,26 +15,9 @@ resource "null_resource" "docker_packaging" {
 
   provisioner "local-exec" {
 
-    command = "docker build -t hello-world:latest ."
+    command = "bash script1.sh ${aws_ecr_repository.images.repository_url}"
 
   }
-   provisioner "local-exec" {
-
-    command = "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${aws_ecr_repository.images.repository_url}"
-
-  }
-   provisioner "local-exec" {
-
-    command = "docker tag hello-world:latest ${aws_ecr_repository.images.repository_url}:latest"
-
-  }
-  provisioner "local-exec" {
-
-    command = "docker push ${aws_ecr_repository.images.repository_url}:latest"
-
-  }
-  
-  
 
 	  triggers = {
 	    "run_at" = timestamp()
