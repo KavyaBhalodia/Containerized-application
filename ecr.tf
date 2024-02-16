@@ -14,8 +14,8 @@ resource "aws_ecr_repository" "images" {
 resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
+    docker build -t "${aws_ecr_repository.images.repository_url}:latest" -f .
     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
-	  docker build -t "${aws_ecr_repository.images.repository_url}:latest" -f .
 	  docker push "${aws_ecr_repository.images.repository_url}:latest"
       
   EOT
