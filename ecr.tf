@@ -15,8 +15,8 @@ resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
-	  docker build -t "${aws_ecr_repository.images.repository_url}:kavya" -f .
-	  docker push "${aws_ecr_repository.images.repository_url}:kavya"
+	  docker build -t "${aws_ecr_repository.images.repository_url}:latest" -f .
+	  docker push "${aws_ecr_repository.images.repository_url}:latest"
       
   EOT
 
