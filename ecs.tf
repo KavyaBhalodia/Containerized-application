@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = jsonencode([
     {
       name      = "task-1"
-      image     = "831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:latest"
+      image     = "831794387446.dkr.ecr.ap-south-1.amazonaws.com/kavya:latest"
       cpu       = 256
       memory    = 512
       essential = true
