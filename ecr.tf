@@ -14,9 +14,9 @@ resource "aws_ecr_repository" "images" {
 resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
-    docker build -t "${aws_ecr_repository.images.repository_url}:kavya" .
+    docker build -t "${aws_ecr_repository.images.repository_url}:${chomp("git rev-parse HEAD")}" .
     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
-	  docker push "${aws_ecr_repository.images.repository_url}:kavya"
+	  docker push "${aws_ecr_repository.images.repository_url}:${chomp("git rev-parse HEAD")}"
       
   EOT
 
@@ -30,3 +30,4 @@ provisioner "local-exec" {
     aws_ecr_repository.images,
   ]
 }
+
