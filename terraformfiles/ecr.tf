@@ -14,9 +14,10 @@ resource "aws_ecr_repository" "images" {
 resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
-    docker build -t "${aws_ecr_repository.images.repository_url}:${chomp("git rev-parse HEAD")}" .
+    $GIT_COMMIT_ID = git rev-parse --short HEAD
+    docker build -t "${aws_ecr_repository.images.repository_url}:$GIT_COMMIT_ID" -f code
     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
-	  docker push "${aws_ecr_repository.images.repository_url}:${chomp("git rev-parse HEAD")}"
+	  docker push "${aws_ecr_repository.images.repository_url}:$GIT_COMMIT_ID"
       
   EOT
 
