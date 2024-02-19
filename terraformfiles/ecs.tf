@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = jsonencode([
     {
       name      = "task-1"
-      image     = "831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:latest"
+      image     = "${aws_ecr_repository.images.repository_url}:$GIT_COMMIT_ID"
       cpu       = 256
       memory    = 512
       essential = true
@@ -56,11 +56,11 @@ resource "aws_ecs_service" "ecs-service-1" {
   desired_count   = 1
 
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.ecs-target-grp.arn
-    container_name   = "task-1"
-    container_port   = 80
-  }
+#   load_balancer {
+#     target_group_arn = aws_lb_target_group.ecs-target-grp.arn
+#     container_name   = "task-1"
+#     container_port   = 80
+#   }
   network_configuration {
     subnets         = aws_subnet.private-subnet.*.id
     security_groups = [aws_security_group.ecs-sg.id]
