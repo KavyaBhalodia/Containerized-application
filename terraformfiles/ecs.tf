@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   container_definitions = jsonencode([
     {
       name      = "containerized-application-task"
-      image     = "${aws_ecr_repository.containerized-application-repository.repository_url}:GIT_COMMIT_ID"
+      image     = "${aws_ecr_repository.containerized-application-repository.repository_url}:local.GIT_COMMIT_ID"
       cpu       = 256
       memory    = 512
       essential = true
