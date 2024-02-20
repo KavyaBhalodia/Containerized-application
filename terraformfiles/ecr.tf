@@ -15,10 +15,10 @@ resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
     $GIT_COMMIT_ID = git rev-parse --short HEAD
-    docker build -t images .
+    docker build -t containerized-application .
     
-    docker tag images 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:latest
-    docker tag images 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:$GIT_COMMIT_ID
+    docker tag containerized-application 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:latest
+    docker tag containerized-application 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:$GIT_COMMIT_ID
 
     aws ecr get-login-password --region ap-south-1 |  docker login --username AWS --password-stdin $(aws ecr get-login-password --region ap-south-1 ) ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
 	  
