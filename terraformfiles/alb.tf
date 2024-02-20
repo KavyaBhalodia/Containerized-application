@@ -1,4 +1,4 @@
-# resource "aws_lb" "ecs-alb" {
+# resource "aws_lb" "conainerized-application-alb" {
 #   name                       = "ecs-alb"
 #   internal                   = false
 #   load_balancer_type         = "application"
@@ -8,8 +8,8 @@
 
 # }
 # //target-grp
-# resource "aws_lb_target_group" "ecs-target-grp" {
-#   name        = "ecs-target-grp"
+# resource "aws_lb_target_group" "conainerized-application-tg" {
+#   name        = "conainerized-application-tg"
 #   port        = 80
 #   protocol    = "HTTP"
 #   vpc_id      = aws_vpc.main.id
@@ -20,10 +20,10 @@
 
 
 # resource "aws_lb_listener" "example" {
-#   load_balancer_arn = aws_lb.ecs-alb.arn
+#   load_balancer_arn = aws_lb.conainerized-application-alb.arn
 #   port              = 80
 #   default_action {
-#     target_group_arn = aws_lb_target_group.ecs-target-grp.arn
+#     target_group_arn = aws_lb_target_group.conainerized-application-tg.arn
 #     type             = "forward"
 #   }
 
