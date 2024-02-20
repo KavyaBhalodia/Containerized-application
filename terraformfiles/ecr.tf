@@ -15,7 +15,7 @@ resource "null_resource" "docker_packaging" {
 provisioner "local-exec" {
   command = <<EOT
     $GIT_COMMIT_ID = git rev-parse --short HEAD
-    docker build -t kavya:$GIT_COMMIT_ID  .
+    docker build -t kavya  .
     
     docker tag kavya:$GIT_COMMIT_ID 831794387446.dkr.ecr.ap-south-1.amazonaws.com/images:$GIT_COMMIT_ID
    
