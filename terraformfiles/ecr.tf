@@ -22,7 +22,6 @@ provisioner "local-exec" {
     docker push "${aws_ecr_repository.images.repository_url}:$GIT_COMMIT_ID"   
 
   EOT
-
   interpreter = ["PowerShell", "-Command"]
 }
 	  triggers = {
