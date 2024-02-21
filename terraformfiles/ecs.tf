@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   container_definitions = jsonencode([
     {
       name      = "containerized-application-task"
-      image     = "${aws_ecr_repository.containerized-application-repository.repository_url}:local.GIT_COMMIT_ID"
+      image     = "${aws_ecr_repository.containerized-application-repository.repository_url}"
       cpu       = 256
       memory    = 512
       essential = true
@@ -56,11 +56,11 @@ resource "aws_ecs_service" "containerized-application-ecs-service" {
   desired_count   = 1
 
 
-#   load_balancer {
-#     target_group_arn = aws_lb_target_group.conainerized-application-tg.arn
-#     container_name   = "containerized-application-container"
-#     container_port   = 80
-#   }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.conainerized-application-tg.arn
+    container_name   = "containerized-application-task"
+    container_port   = 80
+  }
   network_configuration {
     subnets         = aws_subnet.private-subnet.*.id
     security_groups = [aws_security_group.ecs-sg.id]

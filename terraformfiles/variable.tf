@@ -1,6 +1,4 @@
-locals {
-  GIT_COMMIT_ID = "git rev-parse --short HEAD"
-}
+
 variable "public_subnet_cidr" {
   type        = list(string)
   description = "Public subnet cidr"
@@ -14,7 +12,4 @@ variable "private_subnet_cidr" {
 variable "az" {
   type        = list(string)
   description = "Avalaibility zone for subnets"
-}
-variable "region" {
-  type = string
 }
