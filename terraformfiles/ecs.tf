@@ -1,4 +1,9 @@
-//cluster
+##############################################################################################################################
+#                                                                                                                            #
+#                                               ECS-CLUSTER                                                                  #
+#                                                                                                                            #
+##############################################################################################################################
+
 resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
   name = "containerized-application-ecs-cluster"
 
@@ -7,7 +12,7 @@ resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
     value = "enabled"
   }
 }
-//capacity provider
+############################################## ECS capacity provider ###########################################################
 resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-capacity-provider" {
   cluster_name = aws_ecs_cluster.containerized-application-ecs-cluster.name
 
@@ -19,7 +24,9 @@ resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-cap
     weight            = 100
   }
 }
-//task-definition
+
+############################################## ECS task definition #############################################################
+
 resource "aws_ecs_task_definition" "containerized-application-task" {
   family                   = "service"
   requires_compatibilities = ["FARGATE"]
@@ -48,7 +55,10 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
     cpu_architecture        = "X86_64"
   }
 }
-//task-service
+
+################################################ ECS service ##########################################################
+
+
 resource "aws_ecs_service" "containerized-application-ecs-service" {
   name            = "containerized-application-ecs-service"
   cluster         = aws_ecs_cluster.containerized-application-ecs-cluster.id
@@ -66,6 +76,9 @@ resource "aws_ecs_service" "containerized-application-ecs-service" {
     security_groups = [aws_security_group.ecs-sg.id]
   }
 }
+
+################################################ ECS task role ###########################################################
+
 data "aws_iam_role" "my-ecstask-role" {
   name = "ecsTaskExecutionRole"
 }

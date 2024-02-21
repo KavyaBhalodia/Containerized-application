@@ -1,8 +1,18 @@
+##############################################################################################################################
+#                                                                                                                            #
+#                                               Security groups                                                              #
+#                                                                                                                            #
+##############################################################################################################################
+
+############################################## Security group for load balancer ##############################################
+
 resource "aws_security_group" "load-balancer-sg" {
   name        = "load-balancer-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
 }
+
+############################### Security group rules for load balancer security group ##########################################
 
 resource "aws_security_group_rule" "load-balancer-sg-rule" {
   type              = "ingress"
@@ -23,11 +33,16 @@ resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
   security_group_id = aws_security_group.load-balancer-sg.id
 }
 
+######################################## Security group for ECS tasks ########################################################
+
 resource "aws_security_group" "ecs-sg" {
   name        = "ecs-sg"
   description = "Allow traffic from lb"
   vpc_id      = aws_vpc.main.id
 }
+
+############################### Security group rules for load balancer ecs group ############################################
+
 resource "aws_security_group_rule" "ecs-sg-rule" {
   type                     = "ingress"
   from_port                = 0

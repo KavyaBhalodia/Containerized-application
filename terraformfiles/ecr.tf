@@ -1,17 +1,26 @@
-//ecr repository
+##############################################################################################################################
+#                                                                                                                            #
+#                                               ECR repository                                                               #
+#                                                                                                                            #
+##############################################################################################################################
+
+########################################## Get current aws account identity ##################################################
+
 data "aws_caller_identity" "current" {}
 
+################################################## ECR repository ############################################################
 
 resource "aws_ecr_repository" "containerized-application-repository" {
   name                 = "containerized-application-repository"
-  image_tag_mutability = "IMMUTABLE"
+  image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
   }
 }
-//$GIT_COMMIT_ID = git rev-parse --short HEAD
-//aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.ap-south-1.amazonaws.com
+
+############################################## Null resource to push docker image ############################################
+
 resource "null_resource" "docker_packaging" {
   provisioner "local-exec" {
     command     = <<EOT
