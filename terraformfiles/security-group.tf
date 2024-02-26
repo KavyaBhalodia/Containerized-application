@@ -10,6 +10,7 @@ resource "aws_security_group" "load-balancer-sg" {
   name        = "load-balancer-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
+  provider = aws.sandbox
 }
 
 ############################### Security group rules for load balancer security group ##########################################
@@ -22,6 +23,7 @@ resource "aws_security_group_rule" "load-balancer-sg-rule" {
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.load-balancer-sg.id
+  provider = aws.sandbox
 }
 resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
   type              = "egress"
@@ -31,6 +33,7 @@ resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.load-balancer-sg.id
+  provider = aws.sandbox
 }
 
 ######################################## Security group for ECS tasks ########################################################
@@ -39,11 +42,13 @@ resource "aws_security_group" "ecs-sg" {
   name        = "ecs-sg"
   description = "Allow traffic from lb"
   vpc_id      = aws_vpc.main.id
+  provider = aws.sandbox
 }
 
 ############################### Security group rules for load balancer ecs group ############################################
 
 resource "aws_security_group_rule" "ecs-sg-rule" {
+  provider = aws.sandbox
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0
@@ -52,6 +57,7 @@ resource "aws_security_group_rule" "ecs-sg-rule" {
   security_group_id        = aws_security_group.ecs-sg.id
 }
 resource "aws_security_group_rule" "ecs-sg-rule-1" {
+  provider = aws.sandbox
   type              = "egress"
   from_port         = 0
   to_port           = 0
