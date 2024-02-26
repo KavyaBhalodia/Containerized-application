@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   container_definitions = jsonencode([
     {
       name      = "containerized-application-task"
-      image     = "${aws_ecr_repository.containerized-application-repository.repository_url}"
+      image     = "843728461002.dkr.ecr.us-west-2.amazonaws.com/containerized-application-repository:latest"
       cpu       = 1024
       memory    = 2048
       essential = true
