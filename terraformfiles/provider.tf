@@ -10,8 +10,15 @@ terraform {
     docker = {
       source = "kreuzwerker/docker"
     }
+
+  }
+  backend "s3" {
+    bucket = "kavya-containerized-application-tfstate"
+    key    = "state/terraform.tfstate"
+    region = "us-west-2"
   }
 }
+
 provider "docker" {
   host = "npipe:////.//pipe//docker_engine"
 }

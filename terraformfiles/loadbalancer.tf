@@ -1,9 +1,5 @@
-##############################################################################################################################
-#                                                                                                                            #
-#                                           Application load balancer                                                        #
-#                                                                                                                            #
-##############################################################################################################################
 
+#Application load balancer
 resource "aws_lb" "conainerized-application-alb" {
   name                       = "conainerized-application-alb"
   internal                   = false
@@ -11,35 +7,29 @@ resource "aws_lb" "conainerized-application-alb" {
   security_groups            = [aws_security_group.load-balancer-sg.id]
   subnets                    = aws_subnet.public-subnet.*.id
   enable_deletion_protection = false
-  provider = aws.sandbox
+  provider                   = aws.sandbox
 
 }
 
-################################################## Listener ############################################################
-
+#Load balacer listener
 resource "aws_lb_listener" "example" {
   load_balancer_arn = aws_lb.conainerized-application-alb.arn
   port              = 80
-  provider = aws.sandbox
+  provider          = aws.sandbox
   default_action {
     target_group_arn = aws_lb_target_group.conainerized-application-tg.arn
     type             = "forward"
   }
 }
 
-##############################################################################################################################
-#                                                                                                                            #
-#                                               Target group                                                                 #
-#                                                                                                                            #
-##############################################################################################################################
-
+#Targert group
 resource "aws_lb_target_group" "conainerized-application-tg" {
   name        = "conainerized-application-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
-  provider = aws.sandbox
+  provider    = aws.sandbox
 }
 
 

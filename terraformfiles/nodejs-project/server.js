@@ -35,7 +35,9 @@ app.use(passport.initialize());
 // Store our variables to be persisted across the whole session. Works with app.use(Session) above
 app.use(passport.session());
 app.use(flash());
-
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -72,6 +74,11 @@ app.post("/users/register", async (req, res) => {
     password2
   });
 
+  pool.query(`CREATE TABLE users (id BIGSERIAL PRIMARY KEY NOT NULL, name VARCHAR(200) NOT NULL, email VARCHAR(200) NOT NULL, password VARCHAR(200) NOT NULL, UNIQUE (email))`, 
+        (err, res) => {
+        console.log(err, res);
+    });
+
   if (!name || !email || !password || !password2) {
     errors.push({ message: "Please enter all fields" });
   }
@@ -106,6 +113,7 @@ app.post("/users/register", async (req, res) => {
           });
         } else {
           pool.query(
+
             `INSERT INTO users (name, email, password)
                 VALUES ($1, $2, $3)
                 RETURNING id, password`,
