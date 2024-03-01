@@ -39,11 +39,39 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
       cpu       = 1024
       memory    = 2048
       essential = true
+
       portMappings = [
         {
           containerPort = 3000
           hostPort      = 3000
         }
+      ]
+      environment = [
+        {
+          name  = "DB_HOST"
+          value = "kavya-database.ckddpdbqvvn5.us-west-2.rds.amazonaws.com"
+        },
+        {
+          name  = "DB_USER"
+          value = "postgres"
+        },
+        {
+          name  = "DB_PASSWORD"
+          value = "kavyabhalodia"
+        },
+        {
+          name  = "DB_PORT"
+          value = "5432"
+        },
+        {
+          name  = "DB_DATABASE",
+          value = "postgres"
+        },
+        {
+          name  = "SESSION_SECRET"
+          value = "secret"
+        }
+
       ]
     }
   ])

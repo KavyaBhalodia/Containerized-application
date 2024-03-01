@@ -22,7 +22,7 @@ data "aws_key_pair" "kavya" {
 #Elastic-ip for instance
 data "aws_eip" "bastion-host-eip" {
   provider = aws.sandbox
-  id       = "eipalloc-0afc5bb58a53d930b"
+  id       = "eipalloc-028a33c3884713c4d"
 }
 
 #Associating eip with instance
