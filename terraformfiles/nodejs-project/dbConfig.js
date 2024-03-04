@@ -12,18 +12,6 @@ const pool = new Pool({
           rejectUnauthorized:false
   }
 });
-
-
-// const { Pool } = require('pg');
-
-// const pool = new Pool({
-//     user: 'postgres',
-//     host: 'kavya-database.ckddpdbqvvn5.us-west-2.rds.amazonaws.com',
-//     database: 'postgres',
-//     password: 'kavyabhalodia',
-//     port: 5432, // default PostgreSQL port
-// });
-
 pool.on('connect', () => {
   console.log('Connected to the database');
 });

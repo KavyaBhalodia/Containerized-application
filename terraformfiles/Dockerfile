@@ -12,11 +12,6 @@ USER node
 
 RUN npm install
 
-# COPY --chown=node:node nodejs-project/* .
-# COPY --chown=node:node nodejs-project/views ./views
-# ADD --chown=node:node nodejs-project/* .
-# ADD --chown=node:node nodejs-project /home/node/app/
-#ADD --chown=node:node nodejs-project ./
 EXPOSE 3000
 
 CMD [ "node", "server.js" ]
