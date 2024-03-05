@@ -13,3 +13,9 @@ variable "az" {
   type        = list(string)
   description = "Avalaibility zone for subnets"
 }
+variable "region" {
+  type        = string
+  description = "Region for infrastructure"
+}
+
+
