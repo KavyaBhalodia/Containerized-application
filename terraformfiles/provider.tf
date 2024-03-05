@@ -10,9 +10,8 @@ terraform {
     docker = {
       source = "kreuzwerker/docker"
     }
-   git = {
-      source = "paultyng/git"
-      version = "0.1.0"
+    external = {
+      source = "hashicorp/external"
     }
 
   }
@@ -29,4 +28,6 @@ provider "docker" {
   host = "npipe:////.//pipe//docker_engine"
 }
 
-
+provider "external" {
+  
+}
