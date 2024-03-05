@@ -1,7 +1,7 @@
 
 #ECS cluster
 resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
-  name     = "containerized-application-ecs-cluster"
+  name     = "${local.env}-containerized-application-ecs-cluster"
   provider = aws.sandbox
   setting {
     name  = "containerInsights"
@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
 
   container_definitions = jsonencode([
     {
-      name      = "containerized-application-task"
+      name      = "${local.env}-containerized-application-task"
       image     = "${aws_ecr_repository.containerized-application-repository.repository_url}"
       cpu       = 1024
       memory    = 2048
@@ -77,9 +77,9 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"  = "container-logs"
-          "awslogs-region" = var.region
-          "awslogs-stream-prefix" = "service"
+          "awslogs-group"         = "container-logs"
+          "awslogs-region"        = var.region
+          "awslogs-stream-prefix" = "alb-logs"
         }
       }
     }
@@ -90,18 +90,32 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   }
 
 }
+resource "aws_cloudwatch_log_group" "container-logs" {
+  provider = aws.sandbox
+  name     = "container-logs"
 
+  tags = {
+    Environment = "Dev"
+    Application = "service"
+  }
+}
+
+resource "aws_cloudwatch_log_stream" "log-stream" {
+  provider       = aws.sandbox
+  name           = "container-log-stream"
+  log_group_name = aws_cloudwatch_log_group.container-logs.name
+}
 #ECS service
 resource "aws_ecs_service" "containerized-application-ecs-service" {
-  name            = "containerized-application-ecs-service"
+  name            = "${local.env}-containerized-application-ecs-service"
   cluster         = aws_ecs_cluster.containerized-application-ecs-cluster.id
   task_definition = aws_ecs_task_definition.containerized-application-task.arn
   desired_count   = 1
   provider        = aws.sandbox
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.conainerized-application-tg.arn
-    container_name   = "containerized-application-task"
+    target_group_arn = aws_lb_target_group.containerized-application-tg.arn
+    container_name   = "${local.env}-containerized-application-task"
     container_port   = 3000
   }
   network_configuration {

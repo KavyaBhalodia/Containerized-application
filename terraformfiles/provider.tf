@@ -17,9 +17,9 @@ terraform {
   }
   backend "s3" {
     profile = "sandbox"
-    bucket         = "kavya-containerized-application-tfstate"
-    key            = "state/terraform.tfstate"
-    region         = "us-west-2"
+    bucket  = "kavya-containerized-application-tfstate"
+    key     = "state/terraform.tfstate"
+    region  = "us-west-2"
     //dynamodb_table = "containerized-application-tf-lockID"
   }
 }
@@ -29,5 +29,5 @@ provider "docker" {
 }
 
 provider "external" {
-  
+
 }
