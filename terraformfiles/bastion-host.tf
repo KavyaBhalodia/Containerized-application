@@ -7,9 +7,8 @@ resource "aws_instance" "bastion-host" {
   security_groups = [aws_security_group.bastion-host-sg.id]
   key_name        = data.aws_key_pair.kavya.key_name
   tags = {
-    Name = "kavya-bastion-host"
+    Name = "${local.env}-kavya-bastion-host"
   }
-
 }
 
 #Key-pair for instance

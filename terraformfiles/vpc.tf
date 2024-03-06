@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
   provider         = aws.sandbox
   tags = {
-    Name = "main"
+    Name = "${local.env}-containerized-application-vpc"
   }
 
 }
@@ -20,7 +20,7 @@ resource "aws_subnet" "public-subnet" {
   provider                = aws.sandbox
 
   tags = {
-    Name = "public-subnet-${count.index + 1}"
+    Name = "${local.env}-public-subnet-${count.index + 1}"
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_route_table" "public-rt" {
   }
 
   tags = {
-    Name = "public-subnet-rt"
+    Name = "${local.env}-public-subnet-rt"
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_subnet" "private-subnet" {
   cidr_block        = element(var.private_subnet_cidr, count.index)
   availability_zone = element(var.az, count.index)
   tags = {
-    Name = "private-subnet-${count.index + 1}"
+    Name = "${local.env}-private-subnet-${count.index + 1}"
   }
 }
 
@@ -70,7 +70,7 @@ resource "aws_route_table" "private-rt" {
   }
 
   tags = {
-    Name = "private-subnet-rt"
+    Name = "${local.env}-private-subnet-rt"
   }
 }
 
@@ -88,7 +88,7 @@ resource "aws_internet_gateway" "main-vpc-igw" {
   vpc_id   = aws_vpc.main.id
 
   tags = {
-    Name = "main"
+    Name = "${local.env}-containerized-application-igw"
   }
 }
 
@@ -105,7 +105,7 @@ resource "aws_nat_gateway" "nat-gateway" {
   subnet_id     = aws_subnet.public-subnet[0].id
 
   tags = {
-    Name = "gw NAT"
+    Name = "${local.env}-conatainerized-application-NATgw"
   }
 
   depends_on = [aws_eip.nat-gateway-eip, aws_subnet.public-subnet]
