@@ -1,7 +1,7 @@
 
 #Application load balancer
 resource "aws_lb" "containerized-application-alb" {
-  name                       = "${local.env}-kavya-alb"
+  name                       = "${local.env}-containerized-app-alb"
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.load-balancer-sg.id]

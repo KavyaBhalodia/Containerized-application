@@ -37,7 +37,7 @@ resource "null_resource" "docker_packaging" {
 
   depends_on = [
     aws_ecr_repository.containerized-application-repository,
-    # aws_db_instance.default
+    aws_db_instance.default
   ]
 }
 
