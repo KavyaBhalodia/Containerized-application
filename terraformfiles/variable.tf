@@ -17,5 +17,6 @@ variable "region" {
   type        = string
   description = "Region for infrastructure"
 }
-
-
+variable "ecr-repository" {
+  type = string
+}

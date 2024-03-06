@@ -1,7 +1,7 @@
 
 #Security group for load balancer
 resource "aws_security_group" "load-balancer-sg" {
-  name        = "load-balancer-sg"
+  name        = "${local.env}-load-balancer-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
   provider    = aws.sandbox
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
 
 #Security group for ECS tasks
 resource "aws_security_group" "ecs-sg" {
-  name        = "ecs-sg"
+  name        = "${local.env}-ecs-sg"
   description = "Allow traffic from lb"
   vpc_id      = aws_vpc.main.id
   provider    = aws.sandbox
@@ -60,7 +60,7 @@ resource "aws_security_group_rule" "ecs-sg-rule-1" {
 
 #Security group for RDS
 resource "aws_security_group" "rds-sg" {
-  name        = "rds-sg"
+  name        = "${local.env}-rds-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
   provider    = aws.sandbox
@@ -103,7 +103,7 @@ resource "aws_security_group_rule" "rds-sg-rule-3" {
 
 #Security group for bastion host
 resource "aws_security_group" "bastion-host-sg" {
-  name        = "bastion-host-sg"
+  name        = "${local.env}-bastion-host-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
   provider    = aws.sandbox
@@ -121,7 +121,6 @@ resource "aws_security_group_rule" "bastion-host-rule-1" {
   ipv6_cidr_blocks  = ["::/0"]
 
 }
-
 resource "aws_security_group_rule" "bastion-host-rule-2" {
   security_group_id = aws_security_group.bastion-host-sg.id
   provider          = aws.sandbox
