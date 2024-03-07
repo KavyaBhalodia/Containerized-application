@@ -20,3 +20,6 @@ variable "region" {
 variable "ecr-repository" {
   type = string
 }
+variable "environment_variable" {
+
+}

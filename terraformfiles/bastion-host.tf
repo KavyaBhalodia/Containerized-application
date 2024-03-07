@@ -1,6 +1,5 @@
 #Bastion Host for connecting Database
 resource "aws_instance" "bastion-host" {
-  provider        = aws.sandbox
   ami             = "ami-0895022f3dac85884"
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.public-subnet[0].id
@@ -9,6 +8,7 @@ resource "aws_instance" "bastion-host" {
   tags = {
     Name = "${local.env}-kavya-bastion-host"
   }
+  provider = aws.sandbox
 }
 
 #Key-pair for instance
@@ -20,13 +20,13 @@ data "aws_key_pair" "kavya" {
 
 #Elastic-ip for instance
 data "aws_eip" "bastion-host-eip" {
-  provider = aws.sandbox
   id       = "eipalloc-028a33c3884713c4d"
+  provider = aws.sandbox
 }
 
 #Associating eip with instance
 resource "aws_eip_association" "eip-association" {
-  provider      = aws.sandbox
   instance_id   = aws_instance.bastion-host.id
   allocation_id = data.aws_eip.bastion-host-eip.id
+  provider      = aws.sandbox
 }

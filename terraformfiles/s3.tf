@@ -1,29 +1,27 @@
 #S3 bucket for application load-balancer logs
-resource "aws_s3_bucket" "containerized-application-alb-logs" {
-  provider = aws.sandbox
-  bucket   = "containerized-application-alb-logs"
-
+resource "aws_s3_bucket" "containerized-app-alb-logs" {
+  bucket = "containerized-app-alb-logs"
   tags = {
-    Name = "containerized-application-alb-logs"
+    Name = "containerized-app-alb-logs"
   }
+  provider = aws.sandbox
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
-  provider = aws.sandbox
-  bucket   = aws_s3_bucket.containerized-application-alb-logs.id
-
+  bucket                  = aws_s3_bucket.containerized-app-alb-logs.id
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
   restrict_public_buckets = false
+  provider                = aws.sandbox
 }
 
 
 #S3 bucket-policy for accessing ALB logs
 resource "aws_s3_bucket_policy" "s3-bucket-policy" {
-  provider = aws.sandbox
-  bucket   = aws_s3_bucket.containerized-application-alb-logs.id
+  bucket   = aws_s3_bucket.containerized-app-alb-logs.id
   policy   = data.aws_iam_policy_document.s3-bucket-policy.json
+  provider = aws.sandbox
 }
 data "aws_iam_policy_document" "s3-bucket-policy" {
 
@@ -32,9 +30,9 @@ data "aws_iam_policy_document" "s3-bucket-policy" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::797873946194:root"]
+      identifiers = ["arn:aws:iam::${data.aws_elb_service_account.main.id}:root"]
     }
     actions   = ["s3:PutObject"]
-    resources = ["arn:aws:s3:::containerized-application-alb-logs/alblogs/AWSLogs/843728461002/*"]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.containerized-app-alb-logs.bucket}/alblogs/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
   }
 }
