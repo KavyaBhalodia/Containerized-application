@@ -7,27 +7,17 @@ provider "aws" {
 }
 terraform {
   required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
+       aws = {
+      source = "hashicorp/aws"
+      version = "5.40.0"
     }
-    external = {
-      source = "hashicorp/external"
-    }
-
   }
   backend "s3" {
     profile = "sandbox"
-    bucket  = "kavya-containerized-application-tfstate"
+    bucket  = "kavya-module-bucket"
     key     = "state/terraform.tfstate"
     region  = "us-west-2"
     //dynamodb_table = "containerized-application-tf-lockID"
   }
 }
 
-provider "docker" {
-  host = "npipe:////.//pipe//docker_engine"
-}
-
-provider "external" {
-
-}

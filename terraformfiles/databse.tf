@@ -39,3 +39,15 @@
 #     Name = "containerized-application-tf-lockID"
 #   }
 # }
+module "database" {
+  source = "./modules/database"
+  db-identifier="kavya-database"
+  password = "kavyabhalodia"
+  username = "postgres"
+  subnet-grp-name = "postgres-subnet-grp"
+  public-subnets = module.vpc.public-subnets
+  rds-sg = module.security-group.rds-sg
+  providers = {
+    aws=aws.sandbox
+  }
+}

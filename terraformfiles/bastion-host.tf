@@ -30,3 +30,12 @@
 #   instance_id   = aws_instance.bastion-host.id
 #   allocation_id = data.aws_eip.bastion-host-eip.id
 # }
+module "bastion-host-name" {
+  source = "./modules/bastion-host.tf"
+  bastion-host-name = "containered-app-bastion-host"
+  subnet-id = "${module.vpc.public-subnet-id}"
+  bastion-host-sg = "${module.security-group.bastion-host-sg}"
+  providers = {
+    aws=aws.sandbox
+  }
+}
