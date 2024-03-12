@@ -1,6 +1,5 @@
-data "aws_iam_role" "my-ecstask-role" {
-  name     = "ecsTaskExecutionRole"
-}
+
+
 #ECS cluster
 resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
   name     = var.ecs-cluster-name
@@ -9,6 +8,7 @@ resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
     value = "enabled"
   }
 }
+
 
 #ECS capacity provider 
 resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-capacity-provider" {
@@ -20,7 +20,6 @@ resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-cap
     base              = var.base
     weight            = var.weight
   }
-
 }
 
 locals {
@@ -39,7 +38,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   cpu                      = var.cpu
   memory                   = var.memory
   network_mode             = "awsvpc"
-  execution_role_arn       = data.aws_iam_role.my-ecstask-role.arn
+  execution_role_arn       = var.role-arn
 
 
   container_definitions = jsonencode([
@@ -57,32 +56,7 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
         }
       ]
        environment = "${local.environment}"
-      //[
-      #   {
-      #     name  = "DB_HOST"
-      #     value = "kavya-database.ckddpdbqvvn5.us-west-2.rds.amazonaws.com"
-      #   },
-      #   {
-      #     name  = "DB_USER"
-      #     value = "postgres"
-      #   },
-      #   {
-      #     name  = "DB_PASSWORD"
-      #     value = "kavyabhalodia"
-      #   },
-      #   {
-      #     name  = "DB_PORT"
-      #     value = "5432"
-      #   },
-      #   {
-      #     name  = "DB_DATABASE",
-      #     value = "postgres"
-      #   },
-      #   {
-      #     name  = "SESSION_SECRET"
-      #     value = "secret"
-      #   }
-      # ]
+
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -128,4 +102,5 @@ resource "aws_ecs_service" "containerized-application-ecs-service" {
 
 
 }
+
 

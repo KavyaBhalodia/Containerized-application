@@ -56,3 +56,15 @@ variable "ecs-sg-id" {
 variable "environment_variable"  {
   
 }
+variable "role-arn" {
+  type = string
+}
+variable "bucket" {
+  type = string
+}
+variable "key" {
+  type = string
+}
+variable "region" {
+  type = string
+}
