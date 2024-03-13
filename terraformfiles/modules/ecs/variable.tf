@@ -2,6 +2,10 @@ variable "ecs-cluster-name" {
     type = string
     description = "name of the ecs cluster"
 }
+variable "ecs-cluster-id" {
+  type = string
+  description = "Id of the ECS cluster"
+}
 variable "container-name" {
   type = string
   description = "name of the container"
@@ -67,4 +71,11 @@ variable "key" {
 }
 variable "region" {
   type = string
+}
+variable "default_capacity_providers" {
+  type = list(object({
+    capacity_provider = string
+    base=number
+    weight=number
+  }))
 }

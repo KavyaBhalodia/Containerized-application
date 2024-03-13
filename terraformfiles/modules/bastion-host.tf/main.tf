@@ -20,7 +20,7 @@ resource "aws_instance" "bastion-host" {
 #Elastic-ip for instance
 data "aws_eip" "bastion-host-eip" {
  
-  id       = "eipalloc-028a33c3884713c4d"
+  id       = "eipalloc-0f999c6850496ef92"
 }
 
 #Associating eip with instance

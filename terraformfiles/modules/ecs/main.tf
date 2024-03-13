@@ -1,24 +1,39 @@
 
 
-#ECS cluster
-resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
-  name     = var.ecs-cluster-name
-  setting {
-    name  = "containerInsights"
-    value = "enabled"
-  }
-}
+# #ECS cluster
+# resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
+#   name     = var.ecs-cluster-name
+#   setting {
+#     name  = "containerInsights"
+#     value = "enabled"
+#   }
+  
+# }
 
 
 #ECS capacity provider 
 resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-capacity-provider" {
-  cluster_name       = aws_ecs_cluster.containerized-application-ecs-cluster.name
-  capacity_providers = ["FARGATE"]
+  cluster_name       = var.ecs-cluster-name
+  capacity_providers = ["FARGATE","FARGATE_SPOT"]
 
-  default_capacity_provider_strategy {
-    capacity_provider = "FARGATE"
-    base              = var.base
-    weight            = var.weight
+  # default_capacity_provider_strategy {
+  #   capacity_provider = {
+  #     name="FARGATE"
+  #     base=1
+  #     weight=100
+  #   },
+  #   {
+  #   name=""
+
+  #   }
+  # }
+  dynamic "default_capacity_provider_strategy" {
+    for_each = var.default_capacity_providers
+    content {
+      capacity_provider = default_capacity_provider_strategy.value.capacity_provider
+      base = default_capacity_provider_strategy.value.base
+      weight = default_capacity_provider_strategy.value.weight
+    }
   }
 }
 
@@ -84,7 +99,7 @@ resource "aws_cloudwatch_log_group" "container-logs" {
 #ECS service
 resource "aws_ecs_service" "containerized-application-ecs-service" {
   name            = var.ecs-service-name
-  cluster         = aws_ecs_cluster.containerized-application-ecs-cluster.id
+  cluster         = var.ecs-cluster-id
   task_definition = aws_ecs_task_definition.containerized-application-task.arn
   desired_count   = 1
  
@@ -99,7 +114,6 @@ resource "aws_ecs_service" "containerized-application-ecs-service" {
     subnets         = var.private-subnets
     security_groups = var.ecs-sg-id
   }
-
 
 }
 
