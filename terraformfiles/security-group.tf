@@ -74,6 +74,7 @@ module "rds-security-group" {
     aws = aws.sandbox
   }
 }
+
 module "bastion-host-security-group" {
   source  = "./modules/security-group"
   vpc-id  = module.vpc.vpc-id
@@ -95,16 +96,3 @@ module "bastion-host-security-group" {
     aws = aws.sandbox
   }
 }
-
-# module "bastion-host-security-group" {
-#     source = "./modules/security-group"
-#     vpc-id = "${module.vpc.vpc-id}"
-#     bastion-host-sg-name="containerized-app--bastion-host-sg"
-#     bastion-host-ingress-rule-from-port=0
-#     bastion-host-ingress-rule-to-port=0
-#     bastion-host-egress-rule-from-port=0
-#     bastion-host-egress-rule-to-port=0
-#   providers = {
-#     aws = aws.sandbox
-#   }
-# }

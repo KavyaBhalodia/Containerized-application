@@ -16,7 +16,9 @@ variable "subnet-grp-name" {
 }
 variable "public-subnets" {
   type = list(string)
+  description = "public subnets"
 }
 variable "rds-sg" {
   type = list(string)
+  description = "RDS Database security group"
 }

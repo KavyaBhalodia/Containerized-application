@@ -1,42 +1,5 @@
 
-
-# #ECS cluster
-# resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
-#   name     = var.ecs-cluster-name
-#   setting {
-#     name  = "containerInsights"
-#     value = "enabled"
-#   }
-  
-# }
-
-
-#ECS capacity provider 
-resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-capacity-provider" {
-  cluster_name       = var.ecs-cluster-name
-  capacity_providers = ["FARGATE","FARGATE_SPOT"]
-
-  # default_capacity_provider_strategy {
-  #   capacity_provider = {
-  #     name="FARGATE"
-  #     base=1
-  #     weight=100
-  #   },
-  #   {
-  #   name=""
-
-  #   }
-  # }
-  dynamic "default_capacity_provider_strategy" {
-    for_each = var.default_capacity_providers
-    content {
-      capacity_provider = default_capacity_provider_strategy.value.capacity_provider
-      base = default_capacity_provider_strategy.value.base
-      weight = default_capacity_provider_strategy.value.weight
-    }
-  }
-}
-
+#local block to map envirnment values
 locals {
   environment = flatten([
     for name, value in var.environment_variable : [

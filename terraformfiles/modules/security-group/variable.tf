@@ -129,11 +129,3 @@ variable "egress_rules" {
     to_port = number
   }))
 }
-# variable "ingress_sg" {
-#   description = "list of values to assign to security groups"
-#   type = list(object({
-#     from_port = number
-#     to_port=number
-#   }))
- 
-# }

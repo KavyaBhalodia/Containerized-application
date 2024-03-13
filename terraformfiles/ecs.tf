@@ -1,16 +1,9 @@
 
 module "ecs" {
   source           = "./modules/ecs"
-  ecs-cluster-name= module.ecs_cluster.ecs-cluster-name
   container-name   = "containerized-app-container"
-  default_capacity_providers = [
-    {
-      capacity_provider = "FARGATE", base = 1, weight = 100
-    }
-  ]
   base   = 1
   weight = 100
-
   cpu                    = 1024
   memory                 = 2048
   container-port         = 3000
