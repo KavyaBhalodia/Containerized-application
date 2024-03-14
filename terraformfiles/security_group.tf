@@ -1,10 +1,8 @@
-
+#module for ALB security group
 module "alb_security_group" {
   source = "./modules/security_group"
-
   vpc_id  = module.vpc.vpc_id
   sg_name = "containerized_app_alb_sg"
-
   ingress_rules = [
     {
       from_port = 80, to_port = 80, cidr_blocks = ["0.0.0.0/0"], ipv6_cidr_blocks = ["::/0"]
@@ -21,12 +19,12 @@ module "alb_security_group" {
       from_port = 0, to_port = 0
     }
   ]
-
   providers = {
     aws = aws.sandbox
   }
 }
 
+#module for ECS security group
 module "ecs_security_group" {
   source  = "./modules/security_group"
   vpc_id  = module.vpc.vpc_id
@@ -44,18 +42,13 @@ module "ecs_security_group" {
       from_port = 0, to_port = 0
     }
   ]
-  #  ingress_sg = [
-  #   {
-  #     from_port = 0,to_port = 0
-  #   }
-  #  ]
-
 
   providers = {
     aws = aws.sandbox
   }
 }
 
+#module for RDS security group
 module "rds_security_group" {
   source  = "./modules/security_group"
   vpc_id  = module.vpc.vpc_id
@@ -75,6 +68,7 @@ module "rds_security_group" {
   }
 }
 
+#module for bastion-host security group
 module "bastion_host_security_group" {
   source  = "./modules/security_group"
   vpc_id  = module.vpc.vpc_id
