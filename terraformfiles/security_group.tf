@@ -1,9 +1,9 @@
 
-module "alb-security-group" {
-  source = "./modules/security-group"
+module "alb_security_group" {
+  source = "./modules/security_group"
 
-  vpc-id  = module.vpc.vpc-id
-  sg-name = "containerized-app-alb-sg"
+  vpc_id  = module.vpc.vpc_id
+  sg_name = "containerized_app_alb_sg"
 
   ingress_rules = [
     {
@@ -27,10 +27,10 @@ module "alb-security-group" {
   }
 }
 
-module "ecs-security-group" {
-  source  = "./modules/security-group"
-  vpc-id  = module.vpc.vpc-id
-  sg-name = "containerized-app-ecs-sg"
+module "ecs_security_group" {
+  source  = "./modules/security_group"
+  vpc_id  = module.vpc.vpc_id
+  sg_name = "containerized_app_ecs_sg"
   ingress_rules = [
     {
       from_port = 80, to_port = 3000, cidr_blocks = ["0.0.0.0/0"]
@@ -56,10 +56,10 @@ module "ecs-security-group" {
   }
 }
 
-module "rds-security-group" {
-  source  = "./modules/security-group"
-  vpc-id  = module.vpc.vpc-id
-  sg-name = "containerized-app-rds-sg"
+module "rds_security_group" {
+  source  = "./modules/security_group"
+  vpc_id  = module.vpc.vpc_id
+  sg_name = "containerized_app_rds_sg"
   ingress_rules = [
     {
       from_port = 3000, to_port = 5432, cidr_blocks = ["0.0.0.0/0"], ipv6_cidr_blocks = ["::/0"]
@@ -75,10 +75,10 @@ module "rds-security-group" {
   }
 }
 
-module "bastion-host-security-group" {
-  source  = "./modules/security-group"
-  vpc-id  = module.vpc.vpc-id
-  sg-name = "containerized-app-rds-sg"
+module "bastion_host_security_group" {
+  source  = "./modules/security_group"
+  vpc_id  = module.vpc.vpc_id
+  sg_name = "containerized_app_bastion_host_sg"
   ingress_rules = [
     {
       from_port = 22, to_port = 22, cidr_blocks = ["0.0.0.0/0"], ipv6_cidr_blocks = ["::/0"]

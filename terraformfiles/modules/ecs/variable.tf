@@ -1,9 +1,9 @@
 
-variable "ecs-cluster-id" {
+variable "ecs_cluster_id" {
   type = string
   description = "Id of the ECS cluster"
 }
-variable "container-name" {
+variable "container_name" {
   type = string
   description = "name of the container"
 }
@@ -24,40 +24,40 @@ variable "memory" {
   type = number
   description = "amount of RAM allocated to the container"
 }
-variable "container-port" {
+variable "container_port" {
   type = number
   description = "The port of container to expose"
 }
-variable "host-port" {
+variable "host_port" {
   type = number
   description = "The port of host to expose"
 }
-variable "container-log-grp-name" {
+variable "container_log_grp_name" {
   type = string
   description = "Name of the log group"
 }
-variable "ecs-service-name" {
+variable "ecs_service_name" {
   type = string
   description = "Name of the service"
 }
-variable "image-url" {
+variable "image_url" {
   type = string
   description = "value"
 }
-variable "target-grp-arn" {
+variable "target_grp_arn" {
   type = string
   description = "value"
 }
-variable "private-subnets" {
+variable "private_subnets" {
   type = list(string)
 }
-variable "ecs-sg-id" {
+variable "ecs_sg_id" {
   type = list(string)
 }
 variable "environment_variable"  {
   
 }
-variable "role-arn" {
+variable "role_arn" {
   type = string
 }
 variable "bucket" {

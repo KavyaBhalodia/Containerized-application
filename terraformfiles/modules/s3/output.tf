@@ -1,3 +1,3 @@
-output "access-log-bucket" {
-  value = aws_s3_bucket.containerized-application-alb-logs.bucket
+output "access_log_bucket" {
+  value = aws_s3_bucket.containerized_application_alb_logs.bucket
 }

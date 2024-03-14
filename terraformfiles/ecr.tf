@@ -1,7 +1,7 @@
-
+#module for ECR
 module "ecr" {
   source         = "./modules/ecr"
-  ecr-repository = "containerized-app-repository"
+  ecr_repository = "containerized_app_repository"
   region         = "us-west-2"
   providers = {
     aws = aws.sandbox

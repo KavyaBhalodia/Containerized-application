@@ -1,12 +1,12 @@
-
+#module for database
 module "database" {
   source          = "./modules/database"
-  db-identifier   = "kavya-database"
+  db_identifier   = "kavya-database"
   password        = data.aws_ssm_parameter.password.value
   username        = data.aws_ssm_parameter.username.value
-  subnet-grp-name = "postgres-subnet-grp"
-  public-subnets  = module.vpc.public-subnets
-  rds-sg          = [module.rds-security-group.sg-id]
+  subnet_grp_name = "postgres_subnet_grp"
+  public_subnets  = module.vpc.public_subnets
+  rds_sg          = [module.rds_security_group.sg_id]
   providers = {
     aws = aws.sandbox
   }

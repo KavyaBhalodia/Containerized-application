@@ -1,7 +1,7 @@
 
 #ECR repository 
-resource "aws_ecr_repository" "containerized-application-repository" {
-  name                 = var.ecr-repository
+resource "aws_ecr_repository" "containerized_application_repository" {
+  name                 = var.ecr_repository
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration {
     scan_on_push = true
@@ -20,10 +20,10 @@ resource "null_resource" "docker_packaging" {
     docker login
     docker build -t containerized-application .
     aws ecr get-login-password --region ${var.region} |  docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com 
-    docker tag containerized-application "${aws_ecr_repository.containerized-application-repository.repository_url}"
-    docker push "${aws_ecr_repository.containerized-application-repository.repository_url}"
-    docker tag containerized-application "${aws_ecr_repository.containerized-application-repository.repository_url}:$GIT_COMMIT_ID"
-    docker push "${aws_ecr_repository.containerized-application-repository.repository_url}:$GIT_COMMIT_ID"   
+    docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}"
+    docker push "${aws_ecr_repository.containerized_application_repository.repository_url}"
+    docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"
+    docker push "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"   
   EOT
     interpreter = ["PowerShell", "-Command"]
   }
@@ -33,7 +33,7 @@ resource "null_resource" "docker_packaging" {
   }
 
   depends_on = [
-    aws_ecr_repository.containerized-application-repository
+    aws_ecr_repository.containerized_application_repository
   ]
 }
 

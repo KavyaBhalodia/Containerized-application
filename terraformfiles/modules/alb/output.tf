@@ -1,9 +1,7 @@
-output "prefix" {
-  value = "${var.prefix}"
+
+output "target_grp_arn" {
+  value = aws_lb_target_group.containerized_application_tg.arn
 }
-output "target-grp-arn" {
-  value = aws_lb_target_group.containerized-application-tg.arn
-}
-output "alb-log-prefix" {
-  value = var.prefix
+output "alb_logs_prefix" {
+  value = aws_lb.containerized_application_alb.access_logs.prefix
 }

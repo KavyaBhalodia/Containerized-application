@@ -1,4 +1,4 @@
-variable "vpc-name" {
+variable "vpc_name" {
   type = string
   description = "name of the vpc"
 }
@@ -10,11 +10,11 @@ variable "private_subnet_cidr" {
   type        = list(string)
   description = "Private subnet cidr"
 }
-variable "public-subnet-name" {
+variable "public_subnet_name" {
   type = string
   description = "name of the public subnet"
 }
-variable "private-subnet-name" {
+variable "private_subnet_name" {
     type = string
     description = "name of the private subnet"
   
@@ -23,20 +23,20 @@ variable "az" {
   type        = list(string)
   description = "Avalaibility zone for subnets"
 }
-variable "public-rt-name" {
+variable "public_rt_name" {
     type=string
   description = "name of the route table"
 }
-variable "private-rt-name" {
+variable "private_rt_name" {
     type=string
   description = "name of the route table"
 }
-variable "ig-name" {
+variable "ig_name" {
     type = string
     description = "name of the internet gateway"
   
 }
-variable "NatGW-name" {
+variable "NatGW_name" {
   type = string
   description = "name of Nat Gateway"
 }

@@ -1,5 +1,5 @@
 
-data "aws_iam_role" "my-ecstask-role" {
+data "aws_iam_role" "my_ecstask_role" {
   name     = "ecsTaskExecutionRole"
   provider = aws.sandbox
 }

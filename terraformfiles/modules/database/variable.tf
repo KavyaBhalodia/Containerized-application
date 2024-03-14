@@ -1,4 +1,4 @@
-variable "db-identifier" {
+variable "db_identifier" {
   type = string
   description = "Identifier for RDS database"
 }
@@ -10,15 +10,15 @@ variable "password" {
   type = string
   description = "Password for database"
 }
-variable "subnet-grp-name" {
+variable "subnet_grp_name" {
   type = string
-  description = "Subnet-grp-name for database"
+  description = "Subnet_grp_name for database"
 }
-variable "public-subnets" {
+variable "public_subnets" {
   type = list(string)
   description = "public subnets"
 }
-variable "rds-sg" {
+variable "rds_sg" {
   type = list(string)
   description = "RDS Database security group"
 }

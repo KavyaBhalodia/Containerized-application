@@ -1,32 +1,31 @@
-variable "alb-name" {
+variable "alb_name" {
   type = string
   description = "Name of the application load balancer"
 }
-variable "prefix" {
+variable "alb_logs_prefix" {
   type = string
-  description = "Name of the prefix of APplication load balancer logs in s3 bucket"
 }
-variable "listener-port" {
+variable "listener_port" {
     type = number
     description = "Port where listener will listen for requests"
 }
-variable "target-group-name" {
+variable "target_group_name" {
   type = string
-  description = "Name of the Target-grp"
+  description = "Name of the Target_grp"
 }
-variable "alb-sg" {
+variable "alb_sg" {
   type = list(string)
   description = "Application load balancer security group"
 }
-variable "public-subnets" {
+variable "public_subnets" {
   type = list(string)
   description = "Public subnets"
 }
-variable "access-log-bucket" {
+variable "access_log_bucket" {
   type = string
   description = "Access log bucket for logs of application load balancer"
 }
-variable "vpc-id" {
+variable "vpc_id" {
   type = string
-  description = "VPC-id"
+  description = "VPC_id"
 }

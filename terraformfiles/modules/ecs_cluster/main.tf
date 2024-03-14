@@ -1,16 +1,16 @@
 
-#ECS-cluster
-resource "aws_ecs_cluster" "containerized-application-ecs-cluster" {
-  name     = var.ecs-cluster-name
+#ECS_cluster
+resource "aws_ecs_cluster" "containerized_application_ecs_cluster" {
+  name     = var.ecs_cluster_name
   setting {
     name  = "containerInsights"
     value = "enabled"
   }  
 }
 
-#ECS-capacity-provider
-resource "aws_ecs_cluster_capacity_providers" "containerized-application-ecs-capacity-provider" {
-  cluster_name       = aws_ecs_cluster.containerized-application-ecs-cluster.name
+#ECS_capacity_provider
+resource "aws_ecs_cluster_capacity_providers" "containerized_application_ecs_capacity_provider" {
+  cluster_name       = aws_ecs_cluster.containerized_application_ecs_cluster.name
   capacity_providers = ["FARGATE","FARGATE_SPOT"]
   dynamic "default_capacity_provider_strategy" {
     for_each = var.default_capacity_providers

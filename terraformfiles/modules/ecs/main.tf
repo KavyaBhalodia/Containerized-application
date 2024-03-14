@@ -10,27 +10,27 @@ locals {
   ]])
 }
 #ECS task definition 
-resource "aws_ecs_task_definition" "containerized-application-task" {
+resource "aws_ecs_task_definition" "containerized_application_task" {
   family                   = "service"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.cpu
   memory                   = var.memory
   network_mode             = "awsvpc"
-  execution_role_arn       = var.role-arn
+  execution_role_arn       = var.role_arn
 
 
   container_definitions = jsonencode([
     {
-      name      = var.container-name
-      image     = var.image-url
+      name      = var.container_name
+      image     = var.image_url
       cpu       = var.cpu
       memory    = var.memory
       essential = true
 
       portMappings = [
         {
-          containerPort = var.container-port
-          hostPort      = var.host-port
+          containerPort = var.container_port
+          hostPort      = var.host_port
         }
       ]
        environment = "${local.environment}"
@@ -38,9 +38,9 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = var.container-log-grp-name
+          "awslogs-group"         = var.container_log_grp_name
           "awslogs-region"        = "us-west-2"
-          "awslogs-stream-prefix" = "alb-logs"
+          "awslogs-stream-prefix" = "alblogs"
         }
       }
     }
@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "containerized-application-task" {
   }
 
 }
-resource "aws_cloudwatch_log_group" "container-logs" {
-  name=var.container-log-grp-name
+resource "aws_cloudwatch_log_group" "container_logs" {
+  name=var.container_log_grp_name
 
   tags = {
     Environment = "Dev"
@@ -60,22 +60,21 @@ resource "aws_cloudwatch_log_group" "container-logs" {
   }
 }
 #ECS service
-resource "aws_ecs_service" "containerized-application-ecs-service" {
-  name            = var.ecs-service-name
-  cluster         = var.ecs-cluster-id
-  task_definition = aws_ecs_task_definition.containerized-application-task.arn
+resource "aws_ecs_service" "containerized_application_ecs_service" {
+  name            = var.ecs_service_name
+  cluster         = var.ecs_cluster_id
+  task_definition = aws_ecs_task_definition.containerized_application_task.arn
   desired_count   = 1
  
 
   load_balancer {
-    target_group_arn = var.target-grp-arn
-    container_name   = var.container-name
-    container_port   = var.container-port
+    target_group_arn = var.target_grp_arn
+    container_name   = var.container_name
+    container_port   = var.container_port
   }
   network_configuration {
-    //subnets         = aws_subnet.private-subnet.*.id
-    subnets         = var.private-subnets
-    security_groups = var.ecs-sg-id
+    subnets         = var.private_subnets
+    security_groups = var.ecs_sg_id
   }
 
 }
