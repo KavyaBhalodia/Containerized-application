@@ -1,3 +1,5 @@
+
+#local variables that refer to ssm parameters
 locals {
   password = data.aws_ssm_parameter.password.value
   username = data.aws_ssm_parameter.username.value
