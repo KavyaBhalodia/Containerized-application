@@ -12,6 +12,7 @@ resource "aws_lb" "containerized_application_alb" {
     prefix  = var.alb_logs_prefix
     enabled = true
   }
+
 }
 
 #Load balacer listener

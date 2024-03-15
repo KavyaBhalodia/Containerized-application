@@ -14,10 +14,10 @@ terraform {
   }
   backend "s3" {
     profile = "sandbox"
-    bucket  = "kavya-module-bucket"
+    bucket  = "kavya-containerized-app-tfstate"
     key     = "state/terraform.tfstate"
     region  = "us-west-2"
-    dynamodb_table = "containerized-application-tf-lockID"
+    # dynamodb_table = "containerized-application-tf-lockID"
   }
 }
 

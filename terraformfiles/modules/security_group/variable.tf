@@ -15,9 +15,13 @@ variable "ingress_rules" {
     to_port = number
     cidr_blocks = optional(list(string))
     ipv6_cidr_blocks = optional(list(string))
-
-  }))
+    protocol=optional(string,"tcp")
+    
+  }
+    
+  ))
 }
+
 variable "egress_rules" {
   description = "list of values to assign to security groups"
   type = list(object({

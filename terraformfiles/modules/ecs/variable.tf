@@ -60,12 +60,7 @@ variable "environment_variable"  {
 variable "role_arn" {
   type = string
 }
-variable "bucket" {
-  type = string
-}
-variable "key" {
-  type = string
-}
+
 variable "region" {
   type = string
 }

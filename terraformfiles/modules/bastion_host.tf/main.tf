@@ -1,5 +1,5 @@
 
-#Key_pair for instance
+# Key_pair for instance
 data "aws_key_pair" "kavya" {
   key_name           = "kavya"
   include_public_key = true
@@ -18,11 +18,11 @@ resource "aws_instance" "bastion_host" {
 }
 
 #Elastic_ip for instance
-data "aws_eip" "bastion_host_eip" {
-  id       = "eipalloc-0f999c6850496ef92"
-}
+# data "aws_eip" "bastion_host_eip" {
+#   id       = "eipalloc-0f999c6850496ef92"
+# }
 #Associating eip with instance
-resource "aws_eip_association" "eip_association" {
-  instance_id   = aws_instance.bastion_host.id
-  allocation_id = data.aws_eip.bastion_host_eip.id
-}
+# resource "aws_eip_association" "eip_association" {
+#   instance_id   = aws_instance.bastion_host.id
+#   allocation_id = data.aws_eip.bastion_host_eip.id
+# }
