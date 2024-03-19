@@ -24,18 +24,18 @@ resource "aws_db_subnet_group" "subnet-grp" {
 }
 
 #dynamo-db table for state-locking
-resource "aws_dynamodb_table" "conainerized-app-dynamodb-table" {
-  name           = "containerized-app-tf-lockID"
-  billing_mode   = "PROVISIONED"
-  read_capacity  = 20
-  write_capacity = 20
-  hash_key       = "id"
-  attribute {
-    name = "id"
-    type = "S"
-  }
-  tags = {
-    Name = "containerized-app-tf-lockID"
-  }
-  provider = aws.sandbox
-}
+# resource "aws_dynamodb_table" "conainerized-app-dynamodb-table" {
+#   name           = "containerized-app-tf-lockID"
+#   billing_mode   = "PROVISIONED"
+#   read_capacity  = 20
+#   write_capacity = 20
+#   hash_key       = "id"
+#   attribute {
+#     name = "id"
+#     type = "S"
+#   }
+#   tags = {
+#     Name = "containerized-app-tf-lockID"
+#   }
+#   provider = aws.sandbox
+# }
