@@ -4,7 +4,7 @@ pipeline{
     stages{
         stage('test'){
             steps{
-                echo 'tech holding'
+                echo 'Test'
             }
         }
     }
