@@ -190,6 +190,8 @@ data "aws_iam_policy" "aws-ecs-policy" {
 #   policy = data.aws_iam_policy.aws-ecs-policy.policy_id
 #   provider = aws.sandbox
 # }
+#policy for autoscaling
+
 resource "aws_iam_role_policy_attachment" "ecs_service_scaling" {
   role = aws_iam_role.ECS-Autoscaling-role.name
   policy_arn = data.aws_iam_policy.aws-ecs-policy.arn
