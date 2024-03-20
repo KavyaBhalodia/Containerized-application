@@ -16,7 +16,6 @@ resource "aws_s3_bucket_public_access_block" "example" {
   provider                = aws.sandbox
 }
 
-
 #S3 bucket-policy for accessing ALB logs
 resource "aws_s3_bucket_policy" "s3-bucket-policy" {
   bucket   = aws_s3_bucket.containerized-app-alb-logs.id
