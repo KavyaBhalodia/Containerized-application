@@ -132,10 +132,7 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
   }
   provider = aws.sandbox
 }
-# data "aws_iam_role" "autoscaling-role" {
-#   name     = "AWSServiceRoleForApplicationAutoScaling_ECSService"
-#   provider = aws.sandbox
-# }
+
 resource "aws_iam_role" "ECS-Autoscaling-role" {
   name = "ECS-Autosclaing-role"
   assume_role_policy = jsonencode({
@@ -156,28 +153,6 @@ resource "aws_iam_role" "ECS-Autoscaling-role" {
     tag-key = "tag-value"
   }
 }
-# data "aws_iam_policy_document" "ECS-Autoscaling-policy" {
-#   statement {
-#     effect = "Allow"
-#     actions = [
-#       "cloudwatch:DescribeAlarms",
-#       "cloudwatch:PutMetricAlarm"
-#     ]
-#     resources = [
-#       "*"
-#     ]
-#     }
-#     statement{
-#        effect = "Allow"
-#     actions = [
-#       "ecs:DescribeServices",
-#       "ecs:UpdateService"
-#     ]
-#     resources = [
-#       "*"
-#     ] 
-#     }
-#   }
 
 #Data source for IAM policy
 data "aws_iam_policy" "aws-ecs-policy" {
