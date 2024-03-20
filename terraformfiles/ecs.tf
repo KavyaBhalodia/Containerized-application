@@ -110,7 +110,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   resource_id        = "service/${aws_ecs_cluster.containerized-app-ecs-cluster.name}/${aws_ecs_service.containerized-app-ecs-service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
-  role_arn = data.aws_iam_role.autoscaling-role.arn
+  role_arn = aws_iam_role.ECS-Autoscaling-role.arn
   provider = aws.sandbox
 }
 
@@ -132,7 +132,66 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
   }
   provider = aws.sandbox
 }
-data "aws_iam_role" "autoscaling-role" {
-  name     = "AWSServiceRoleForApplicationAutoScaling_ECSService"
+# data "aws_iam_role" "autoscaling-role" {
+#   name     = "AWSServiceRoleForApplicationAutoScaling_ECSService"
+#   provider = aws.sandbox
+# }
+resource "aws_iam_role" "ECS-Autoscaling-role" {
+  name = "ECS-Autosclaing-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "application-autoscaling.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  tags = {
+    tag-key = "tag-value"
+  }
+}
+# data "aws_iam_policy_document" "ECS-Autoscaling-policy" {
+#   statement {
+#     effect = "Allow"
+#     actions = [
+#       "cloudwatch:DescribeAlarms",
+#       "cloudwatch:PutMetricAlarm"
+#     ]
+#     resources = [
+#       "*"
+#     ]
+#     }
+#     statement{
+#        effect = "Allow"
+#     actions = [
+#       "ecs:DescribeServices",
+#       "ecs:UpdateService"
+#     ]
+#     resources = [
+#       "*"
+#     ] 
+#     }
+#   }
+data "aws_iam_policy" "aws-ecs-policy" {
+ name = "AmazonEC2ContainerServiceAutoscaleRole"
+  
+  provider = aws.sandbox
+}
+# resource "aws_iam_policy" "ecs-policy" {
+#   name = "ecs-policy"
+#   path = "/"
+#   description = "Allow access to the service elb"
+#   policy = data.aws_iam_policy.aws-ecs-policy.policy_id
+#   provider = aws.sandbox
+# }
+resource "aws_iam_role_policy_attachment" "ecs_service_scaling" {
+  role = aws_iam_role.ECS-Autoscaling-role.name
+  policy_arn = data.aws_iam_policy.aws-ecs-policy.arn
   provider = aws.sandbox
 }
