@@ -148,10 +148,6 @@ resource "aws_iam_role" "ECS-Autoscaling-role" {
       },
     ]
   })
-
-  tags = {
-    tag-key = "tag-value"
-  }
 }
 
 #Data source for IAM policy
