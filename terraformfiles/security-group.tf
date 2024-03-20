@@ -8,7 +8,7 @@ resource "aws_security_group" "load-balancer-sg" {
 }
 
 #Security group rules for load balancer security group
-resource "aws_security_group_rule" "load-balancer-sg-rule" {
+resource "aws_security_group_rule" "load-balancer-ingress-rule" {
   type              = "ingress"
   from_port         = 0
   to_port           = 0
@@ -18,7 +18,7 @@ resource "aws_security_group_rule" "load-balancer-sg-rule" {
   security_group_id = aws_security_group.load-balancer-sg.id
   provider          = aws.sandbox
 }
-resource "aws_security_group_rule" "load-balancer-sg-rule-1" {
+resource "aws_security_group_rule" "load-balancer-egress-rule" {
   type              = "egress"
   from_port         = 0
   to_port           = 0
@@ -38,17 +38,16 @@ resource "aws_security_group" "ecs-sg" {
 }
 
 #Security group rules for ECS tasks
-resource "aws_security_group_rule" "ecs-sg-rule" {
-  provider                 = aws.sandbox
+resource "aws_security_group_rule" "ecs-sg-ingress-rule" {
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0
   protocol                 = "all"
   source_security_group_id = aws_security_group.load-balancer-sg.id
   security_group_id        = aws_security_group.ecs-sg.id
+  provider                 = aws.sandbox
 }
-resource "aws_security_group_rule" "ecs-sg-rule-1" {
-  provider          = aws.sandbox
+resource "aws_security_group_rule" "ecs-sg-egress-rule" {
   type              = "egress"
   from_port         = 0
   to_port           = 0
@@ -56,6 +55,7 @@ resource "aws_security_group_rule" "ecs-sg-rule-1" {
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.ecs-sg.id
+  provider          = aws.sandbox
 }
 
 #Security group for RDS
@@ -67,63 +67,61 @@ resource "aws_security_group" "rds-sg" {
 }
 
 #Security group rules for RDS security group
-resource "aws_security_group_rule" "rds-sg-rule-1" {
+resource "aws_security_group_rule" "rds-sg-ingress-rule" {
   security_group_id = aws_security_group.rds-sg.id
-  provider          = aws.sandbox
   type              = "ingress"
   from_port         = 0
   to_port           = 5432
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
+  provider          = aws.sandbox
 
 }
 
-resource "aws_security_group_rule" "rds-sg-rule-2" {
+resource "aws_security_group_rule" "rds-sg-egress-rule" {
   security_group_id = aws_security_group.rds-sg.id
-  provider          = aws.sandbox
   type              = "egress"
   from_port         = 0
   to_port           = 0
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-
+  provider          = aws.sandbox
 }
 
-resource "aws_security_group_rule" "rds-sg-rule-3" {
-  provider                 = aws.sandbox
+resource "aws_security_group_rule" "rds-sg-ingress-rule-1" {
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0
   protocol                 = "all"
   source_security_group_id = aws_security_group.ecs-sg.id
   security_group_id        = aws_security_group.rds-sg.id
+  provider                 = aws.sandbox
 }
 
 #Security group for bastion host
 resource "aws_security_group" "bastion-host-sg" {
+  provider    = aws.sandbox
   name        = "${local.env}-bastion-host-sg"
   description = "Allow all traffic"
   vpc_id      = aws_vpc.main.id
-  provider    = aws.sandbox
 }
 
 #Security group rules for bastion host
-resource "aws_security_group_rule" "bastion-host-rule-1" {
-  security_group_id = aws_security_group.bastion-host-sg.id
+resource "aws_security_group_rule" "bastion-host-ingress-rule" {
   provider          = aws.sandbox
+  security_group_id = aws_security_group.bastion-host-sg.id
   type              = "ingress"
   from_port         = 0
   to_port           = 0
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-
 }
-resource "aws_security_group_rule" "bastion-host-rule-2" {
-  security_group_id = aws_security_group.bastion-host-sg.id
+resource "aws_security_group_rule" "bastion-host-egress-rule" {
   provider          = aws.sandbox
+  security_group_id = aws_security_group.bastion-host-sg.id
   type              = "egress"
   from_port         = 0
   to_port           = 0
