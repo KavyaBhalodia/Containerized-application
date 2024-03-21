@@ -2,7 +2,7 @@
 pipeline{
     agent any
     stages{
-        stage('test'){
+        stage('build'){
             steps{
                 script{
                 
