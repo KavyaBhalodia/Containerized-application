@@ -11,7 +11,7 @@ pipeline{
                 //echo ${env.sha1}
                 //echo "${env.BRANCH_NAME}"
                 
-                }
+                
             }
         }
     }
