@@ -5,6 +5,8 @@ pipeline{
         stage('test'){
             steps{
                 echo "${env.ghprbSourceBranch}"
+                echo "${ghprbTargetBranch}"
+                echo "${sha1}"
             }
         }
     }
