@@ -6,10 +6,10 @@ pipeline{
             steps{
                 script{
                 
-                echo "${env.BUILD_NUMBER}"
+                //echo "${env.BUILD_NUMBER}"
                 echo %env.ghprbSourceBranch% 
                 //echo ${env.sha1}
-                echo "${env.BRANCH_NAME}"
+                //echo "${env.BRANCH_NAME}"
                 
                 }
             }
