@@ -10,7 +10,7 @@ pipeline{
                 echo %env.ghprbSourceBranch% 
                 //echo ${env.sha1}
                 //echo "${env.BRANCH_NAME}"
-                
+                }
                 
             }
         }
