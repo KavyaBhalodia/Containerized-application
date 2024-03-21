@@ -4,7 +4,7 @@ pipeline{
     stages{
         stage('test'){
             steps{
-                echo "${env.ghprbSourceBranch}"
+                echo "${params.ghprbSourceBranch}"
                 echo "${env.ghprbTargetBranch}"
                 echo "${env.sha1}"
             }
