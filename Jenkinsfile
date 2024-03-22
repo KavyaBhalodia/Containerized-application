@@ -16,12 +16,10 @@ pipeline{
             }
         }
         stage('checkout')
-        {
-            
+        {   
                 steps {
-                    
                 script{
-                    dir('test')
+                    dir("${env.environment}")
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
@@ -29,8 +27,6 @@ pipeline{
                     url: "${env.github_url}"
                      }
                     }
-                    
-            
         }
         }
         stage('run_script')
