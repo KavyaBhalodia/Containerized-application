@@ -18,7 +18,7 @@ pipeline{
         stage('checkout')
         {
             
-                
+                steps {
                      
                      def source_branch = env.ghprbSourceBranch
                     // // git branch: "${source_branch}",
@@ -28,7 +28,7 @@ pipeline{
                     //     branches: [[name: "${source_branch}"]],
                     //     userRemoteConfigs: [[credentialsId: 'git-credentials',
                     //     url: "${env.github_url}"]])
-                    steps {
+                    
                 // Checkout the repository using Git
                 checkout([$class: 'GitSCM', branches: [[name: "${source_branch}"]], 
                           userRemoteConfigs: [[url: "${env.github_url}"]]])
