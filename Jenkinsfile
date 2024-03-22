@@ -19,10 +19,23 @@ pipeline{
         {
             steps{
                 script{
-                     bat '''
-                    set source_branch = env.ghprbSourceBranch
-                   
-                    git checkout %source_branch%
+                     
+                    def source_branch = env.ghprbSourceBranch
+                    git branch: "${source_branch}",
+                    credentialsId: 'git-credentials',
+                    url: "${env.github_url}"
+                    
+                }
+            }
+        }
+        stage('run_script')
+        {
+            steps{
+                script{
+                    bat'''
+                    E:
+                    cd test
+                    script.bat
                     '''
                 }
             }
