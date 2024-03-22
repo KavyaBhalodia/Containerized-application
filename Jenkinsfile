@@ -20,7 +20,9 @@ pipeline{
             steps{
                 script{
                     def source_branch = env.ghprbSourceBranch
+                    bat '''
                     git checkout "${source_branch}"
+                    '''
                 }
             }
         }
