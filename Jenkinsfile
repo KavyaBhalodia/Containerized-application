@@ -20,10 +20,13 @@ pipeline{
             steps{
                 script{
                      
-                    def source_branch = env.ghprbSourceBranch
-                    git branch: "${source_branch}",
-                    credentialsId: 'git-credentials',
-                    url: "${env.github_url}"
+                    // def source_branch = env.ghprbSourceBranch
+                    // git branch: "${source_branch}",
+                    // credentialsId: 'git-credentials',
+                    // url: "${env.github_url}"
+                    bat'''
+                    git checkout dev
+                    '''
                     
                 }
             }
