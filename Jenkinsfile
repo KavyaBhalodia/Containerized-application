@@ -5,8 +5,13 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                def actualCommit = env.ghprbActualCommit
-                echo "${actualCommit}"
+                def source_branch = env.ghprbSourceBranch
+                def target_branch = env.ghprbTargetBranch
+                def pull_id=env.ghprbPullId
+                echo "${source_branch}"
+                echo "${target_branch}"
+                echo "${pull_id}"
+
                 }
             }
         }
