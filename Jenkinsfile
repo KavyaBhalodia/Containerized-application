@@ -21,13 +21,13 @@ pipeline{
                 steps {
                     
                 script{
-                    dir('E:\\test')
-                    {
+                    // dir('E:\\test')
+                    // {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
                     credentialsId: 'git-credentials',
                     url: "${env.github_url}"
-                     }
+                     //}
                     }
                     
             
