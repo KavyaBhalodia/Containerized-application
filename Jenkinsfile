@@ -17,10 +17,10 @@ pipeline{
         }
         stage('checkout')
         {
-            steps{
-                script{
+            
+                
                      
-                    //  def source_branch = env.ghprbSourceBranch
+                     def source_branch = env.ghprbSourceBranch
                     // // git branch: "${source_branch}",
                     // // credentialsId: 'git-credentials',
                     // // url: "${env.github_url}"
@@ -28,8 +28,12 @@ pipeline{
                     //     branches: [[name: "${source_branch}"]],
                     //     userRemoteConfigs: [[credentialsId: 'git-credentials',
                     //     url: "${env.github_url}"]])
-                    git checkout dev
-                }
+                    steps {
+                // Checkout the repository using Git
+                checkout([$class: 'GitSCM', branches: [[name: "${source_branch}"]], 
+                          userRemoteConfigs: [[url: "${env.github_url}"]]])
+            
+                
             }
         }
         stage('run_script')
