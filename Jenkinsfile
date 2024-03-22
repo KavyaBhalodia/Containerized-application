@@ -19,8 +19,9 @@ pipeline{
         {
             
                 steps {
-                     script{
                     dir('E:\\test')
+                     script{
+                    
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
                     credentialsId: 'git-credentials',
