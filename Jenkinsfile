@@ -19,7 +19,7 @@ pipeline{
         {
             
                 steps {
-                     
+                     script{
                      def source_branch = env.ghprbSourceBranch
                     // // git branch: "${source_branch}",
                     // // credentialsId: 'git-credentials',
@@ -33,7 +33,7 @@ pipeline{
                 checkout([$class: 'GitSCM', branches: [[name: "${source_branch}"]], 
                           userRemoteConfigs: [[url: "${env.github_url}"]]])
             
-                
+                     }
             }
         }
         stage('run_script')
