@@ -11,7 +11,16 @@ pipeline{
                 echo "${source_branch}"
                 echo "${target_branch}"
                 echo "${pull_id}"
-
+               
+                }
+            }
+        }
+        stage('checkout')
+        {
+            steps{
+                script{
+                    def source_branch = env.ghprbSourceBranch
+                    git checkout "${source_branch}"
                 }
             }
         }
