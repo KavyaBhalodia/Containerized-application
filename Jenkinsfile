@@ -8,7 +8,7 @@ pipeline{
                 bat '''
                 set var=%env.sha1%
                 echo %var%
-                echo %ghprbSourceBranch%
+                echo %env.ghprbSourceBranch%
                 '''
                 }
             }
