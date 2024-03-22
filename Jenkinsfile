@@ -36,6 +36,7 @@ pipeline{
                 //      }
             }
         }
+        }
         stage('run_script')
         {
             steps{
