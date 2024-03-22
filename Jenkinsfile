@@ -20,7 +20,6 @@ pipeline{
             
                 steps {
                      script{
-                     def source_branch = env.BRANCH_NAME
                     git branch: "${source_branch}",
                     credentialsId: 'git-credentials',
                     url: "${env.github_url}"
