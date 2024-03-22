@@ -4,8 +4,9 @@ pipeline{
     stages{
         stage('build'){
             steps{
-               echo "hello"
+                echo %sha1%
             }
         }
     }
+    
 }
