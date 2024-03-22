@@ -20,15 +20,15 @@ pipeline{
             steps{
                 script{
                      
-                     def source_branch = env.ghprbSourceBranch
-                    // git branch: "${source_branch}",
-                    // credentialsId: 'git-credentials',
-                    // url: "${env.github_url}"
-                    checkout scmGit(
-                        branches: [[name: "${source_branch}"]],
-                        userRemoteConfigs: [[credentialsId: 'git-credentials',
-                        url: "${env.github_url}"]])
-                    
+                    //  def source_branch = env.ghprbSourceBranch
+                    // // git branch: "${source_branch}",
+                    // // credentialsId: 'git-credentials',
+                    // // url: "${env.github_url}"
+                    // checkout scmGit(
+                    //     branches: [[name: "${source_branch}"]],
+                    //     userRemoteConfigs: [[credentialsId: 'git-credentials',
+                    //     url: "${env.github_url}"]])
+                    git checkout dev
                 }
             }
         }
