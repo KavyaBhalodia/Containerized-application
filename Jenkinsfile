@@ -7,6 +7,7 @@ pipeline{
                 script{
                 bat '''
                 echo %sha1%
+                echo %ghprbSourceBranch%
                 '''
                 }
             }
