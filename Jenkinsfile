@@ -5,11 +5,8 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                bat '''
-                set var=%env.sha1%
-                echo %var%
-                echo %env.ghprbSourceBranch%
-                '''
+                def actualCommit = env.ghprbActualCommit
+                echo "${actualCommit}
                 }
             }
         }
