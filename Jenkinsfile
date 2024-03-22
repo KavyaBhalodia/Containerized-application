@@ -11,8 +11,7 @@ pipeline{
                 echo "${source_branch}"
                 echo "${target_branch}"
                 echo "${pull_id}"
-                echo "branch-1"
-
+                echo "BRANCH-1"
 
                 }
             }
