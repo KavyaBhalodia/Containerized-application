@@ -30,8 +30,8 @@ pipeline{
                     //     url: "${env.github_url}"]])
                     
                 // Checkout the repository using Git
-                checkout([$class: 'GitSCM', branches: [[name: "${source_branch}"]], 
-                          userRemoteConfigs: [[url: "${env.github_url}"]]])
+                checkout([$class: 'GitSCM', branches: [[name: "${source_branch}"]],
+                          credentialsId: 'git-credentials',userRemoteConfigs: [[url: "${env.github_url}"]]])
             
                      }
             }
