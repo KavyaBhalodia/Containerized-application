@@ -6,7 +6,7 @@ pipeline{
             steps{
                 script{
                 def actualCommit = env.ghprbActualCommit
-                echo "${actualCommit}
+                echo "${actualCommit}"
                 }
             }
         }
