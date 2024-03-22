@@ -4,7 +4,11 @@ pipeline{
     stages{
         stage('build'){
             steps{
+                script{
+                bat '''
                 echo %sha1%
+                '''
+                }
             }
         }
     }
