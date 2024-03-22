@@ -2,15 +2,16 @@
 pipeline{
     agent any
     stages{
-        stage('test'){
+        stage('build'){
             steps{
                 script{
-                
-                //echo "${env.BUILD_NUMBER}"
-                echo %env.ghprbSourceBranch% 
-                //echo ${env.sha1}
-                //echo "${env.BRANCH_NAME}"
-                
+                def source_branch = env.ghprbSourceBranch
+                def target_branch = env.ghprbTargetBranch
+                def pull_id=env.ghprbPullId
+                echo "${source_branch}"
+                echo "${target_branch}"
+                echo "${pull_id}"
+
                 }
             }
         }
