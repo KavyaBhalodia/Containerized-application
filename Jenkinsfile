@@ -6,7 +6,7 @@ pipeline{
             steps{
                 script{
                 bat '''
-                set var=%sha1%
+                set var=%env.sha1%
                 echo %var%
                 echo %ghprbSourceBranch%
                 '''
