@@ -37,9 +37,8 @@ pipeline{
                         // Checkout the specific branch
                         checkout([$class: 'GitSCM', 
                             branches: [[name: "refs/heads/${source_branch}"]],
-                            userRemoteConfigs: [[url: "${env.github_url}"]],
-                             credentialsId:'git-credentials'])
-                   // }
+                            userRemoteConfigs: [[url: "${env.github_url}",credentialsId:'git-credentials']]])
+                    }
         }
         }
         }
