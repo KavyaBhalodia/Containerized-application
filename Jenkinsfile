@@ -30,7 +30,7 @@ pipeline{
                 script {
                     // Define the branch name and the target directory
                     def source_branch = env.ghprbSourceBranch
-                    def targetDirectory = 'E:/test'
+                    def targetDirectory = 'test'
 
                     // Checkout the branch in the target directory
                     dir(targetDirectory) {
