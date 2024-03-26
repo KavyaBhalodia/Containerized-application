@@ -49,7 +49,7 @@ pipeline{
                 script{
                     bat'''
                     E:
-                    cd test
+                    cd script
                     script.bat
                     '''
                 }
