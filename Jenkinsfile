@@ -33,12 +33,13 @@ pipeline{
                     def targetDirectory = 'E:/test'
 
                     // Checkout the branch in the target directory
-                    //dir(targetDirectory) {
+                    dir(targetDirectory) {
                         // Checkout the specific branch
                         checkout([$class: 'GitSCM', 
                             branches: [[name: "refs/heads/${source_branch}"]],
                             userRemoteConfigs: [[url: "${env.github_url}",credentialsId:'git-credentials']]])
                     }
+                }
         }
         }
         
