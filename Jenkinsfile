@@ -17,29 +17,29 @@ pipeline{
         stage('checkout')
         {   
                 steps {
-                // script{
-                //     def target_dir
-                //     dir("E:/test")
-                //      {
-                //     def source_branch = env.ghprbSourceBranch
-                //     git branch: "${source_branch}",
-                //     credentialsId: 'git-credentials',
-                //     url: "${env.github_url}"
-                //      }
-                //     }
-                script {
-                    // Define the branch name and the target directory
+                script{
+                    def target_dir
+                    dir("E:/test")
+                     {
                     def source_branch = env.ghprbSourceBranch
-                    def targetDirectory = 'E:/test'
-
-                    // Checkout the branch in the target directory
-                    dir(targetDirectory) {
-                        // Checkout the specific branch
-                        checkout([$class: 'GitSCM', 
-                            branches: [[name: "refs/heads/${source_branch}"]],
-                            userRemoteConfigs: [[url: "${env.github_url}",credentialsId:'git-credentials']]])
+                    git branch: "${source_branch}",
+                    credentialsId: 'git-credentials',
+                    url: "${env.github_url}"
+                     }
                     }
-                }
+                // script {
+                //     // Define the branch name and the target directory
+                //     def source_branch = env.ghprbSourceBranch
+                //     def targetDirectory = 'E:/test'
+
+                //     // Checkout the branch in the target directory
+                //     dir(targetDirectory) {
+                //         // Checkout the specific branch
+                //         checkout([$class: 'GitSCM', 
+                //             branches: [[name: "refs/heads/${source_branch}"]],
+                //             userRemoteConfigs: [[url: "${env.github_url}",credentialsId:'git-credentials']]])
+                //     }
+                // }
         }
         }
         
