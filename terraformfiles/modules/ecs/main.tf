@@ -83,7 +83,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   resource_id        = "service/${var.cluster_name}/${aws_ecs_service.containerized_application_ecs_service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
-  role_arn = data.aws_iam_role.autoscaling-role.arn
+  role_arn = aws_iam_role.ECS-Autoscaling-role.arn
  
 }
 
@@ -106,7 +106,25 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
   }
   
 }
-data "aws_iam_role" "autoscaling-role" {
-  name     = "AWSServiceRoleForApplicationAutoScaling_ECSService"
+resource "aws_iam_role" "ECS-Autoscaling-role" {
+  name = "ECS-Autosclaing-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "application-autoscaling.amazonaws.com"
+        }
+      },
+    ]
+  })
+}
 
+#Data source for IAM policy
+data "aws_iam_policy" "aws-ecs-policy" {
+ name = "AmazonEC2ContainerServiceAutoscaleRole"
+  
 }
