@@ -18,7 +18,7 @@ pipeline{
         {   
                 steps {
                 script{
-                    def target_dir
+                    
                     dir("E:/test")
                      {
                     def source_branch = env.ghprbSourceBranch
