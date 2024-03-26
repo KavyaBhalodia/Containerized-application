@@ -18,7 +18,7 @@ pipeline{
         {   
                 steps {
                 script{
-                    dir("E\\test-1")
+                    dir("${env.environment}")
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
