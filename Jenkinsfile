@@ -19,13 +19,11 @@ pipeline{
                 steps {
                 script{
                     ws("E:/test")
-
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
                     credentialsId: 'git-credentials',
-                    url: "${env.github_url}",
-                    changelog: false
+                    url: "${env.github_url}"
                      }
 
                     }
