@@ -8,9 +8,11 @@ pipeline{
                 def source_branch = env.ghprbSourceBranch
                 def target_branch = env.ghprbTargetBranch
                 def pull_id=env.ghprbPullId
+                def commit_author=env.ghprbActualCommitAuthor
                 echo "${source_branch}"
                 echo "${target_branch}"
                 echo "${pull_id}"
+                echo "${commit_author}"
                 }
             }
         }
@@ -19,10 +21,8 @@ pipeline{
                 steps {
                 script{
                   
-                    dir("E:\\test")
+                    dir("${env.environment}")
                      {
-                        
-
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
                     credentialsId: 'git-credentials',
