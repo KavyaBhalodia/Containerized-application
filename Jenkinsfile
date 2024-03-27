@@ -21,7 +21,7 @@ pipeline{
                     bat'''
                     cd E:
                     cd test
-                    '''
+                    
                     dir("../E:/test")
                      {
                     def source_branch = env.ghprbSourceBranch
@@ -29,7 +29,7 @@ pipeline{
                     credentialsId: 'git-credentials',
                     url: "${env.github_url}"
                      }
-
+                    '''
                     }
         }
      }
