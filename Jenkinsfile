@@ -18,7 +18,11 @@ pipeline{
         {   
                 steps {
                 script{
-                    ws("E:/test")
+                    bat'''
+                    cd E:
+                    cd test
+                    '''
+                    dir("../E:/test")
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
