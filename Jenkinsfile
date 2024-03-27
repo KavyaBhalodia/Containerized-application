@@ -18,18 +18,18 @@ pipeline{
         {   
                 steps {
                 script{
-                    bat'''
-                    cd E:
-                    cd test
-                    
+                  
                     dir("E:/test")
                      {
-                    def source_branch = env.ghprbSourceBranch
-                    git branch: "${source_branch}",
-                    credentialsId: 'git-credentials',
-                    url: "${env.github_url}"
+                        bat'''
+                        git chekout dev
+                        '''
+                    // def source_branch = env.ghprbSourceBranch
+                    // git branch: "${source_branch}",
+                    // credentialsId: 'git-credentials',
+                    // url: "${env.github_url}"
                      }
-                    '''
+
                     }
         }
      }
