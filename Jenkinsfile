@@ -22,7 +22,7 @@ pipeline{
                     cd E:
                     cd test
                     
-                    dir("../E:/test")
+                    dir("E:/test")
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
