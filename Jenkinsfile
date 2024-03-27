@@ -22,7 +22,7 @@ pipeline{
                     dir("E:/test")
                      {
                         bat'''
-                        git chekout dev
+                        git checkout dev
                         '''
                     // def source_branch = env.ghprbSourceBranch
                     // git branch: "${source_branch}",
