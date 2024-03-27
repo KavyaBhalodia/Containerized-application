@@ -19,7 +19,7 @@ pipeline{
                 steps {
                 script{
                   
-                    dir("E:\\test")
+                    dir("E:")
                      {
                         bat'''
                         git checkout dev
