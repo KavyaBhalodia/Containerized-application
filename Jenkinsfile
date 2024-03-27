@@ -21,14 +21,12 @@ pipeline{
                   
                     dir("E:\\test")
                      {
-                        bat'''
-                        git checkout dev
-                        '''
+                        
 
-                    // def source_branch = env.ghprbSourceBranch
-                    // git branch: "${source_branch}",
-                    // credentialsId: 'git-credentials',
-                    // url: "${env.github_url}"
+                    def source_branch = env.ghprbSourceBranch
+                    git branch: "${source_branch}",
+                    credentialsId: 'git-credentials',
+                    url: "${env.github_url}"
                      }
 
                     }
