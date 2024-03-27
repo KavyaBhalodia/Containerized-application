@@ -18,7 +18,7 @@ pipeline{
         {   
                 steps {
                 script{
-                    dir("${env.environment}")
+                    dir("E:/test")
                      {
                     def source_branch = env.ghprbSourceBranch
                     git branch: "${source_branch}",
@@ -26,7 +26,7 @@ pipeline{
                     url: "${env.github_url}",
                     changelog: false
                      }
-                     
+
                     }
         }
      }
