@@ -27,7 +27,7 @@ pipeline{
                      }
                     }
         }
-        }
+     }
         
         stage('run_script')
         {
