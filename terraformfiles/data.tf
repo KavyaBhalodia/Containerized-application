@@ -2,30 +2,35 @@
 #data source to get ecs role
 data "aws_iam_role" "my_ecstask_role" {
   name     = "ecsTaskExecutionRole"
-  provider = aws.sandbox
+  provider = aws
 }
 
 #data source to get ssm parameters
 data "aws_ssm_parameter" "password" {
   name     = "/kavya/rds/db_password"
-  provider = aws.sandbox
+  provider = aws
 }
 data "aws_ssm_parameter" "username" {
   name     = "/kavya/rds/db_username"
-  provider = aws.sandbox
+  provider = aws
 }
 data "aws_ssm_parameter" "port" {
   name     = "/kavya/rds/port"
-  provider = aws.sandbox
+  provider = aws
 }
 data "aws_ssm_parameter" "host" {
   name     = "/kavya/rds/host"
-  provider = aws.sandbox
+  provider = aws
 }
 data "aws_ssm_parameter" "secret" {
   name     = "/kavya/rds/session_secret"
-  provider = aws.sandbox
+  provider = aws
 }
-
-
-
+#local variables that refer to ssm parameters
+locals {
+  DB_HOST        = data.aws_ssm_parameter.host.arn
+  DB_PASSWORD    = data.aws_ssm_parameter.password.arn
+  DB_USER        = data.aws_ssm_parameter.username.arn
+  DB_PORT        = data.aws_ssm_parameter.port.arn
+  SESSION_SECRET = data.aws_ssm_parameter.secret.arn
+}

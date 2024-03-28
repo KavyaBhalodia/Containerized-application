@@ -1,11 +1,4 @@
-#local variables that refer to ssm parameters
-locals {
-  DB_HOST        = data.aws_ssm_parameter.host.arn
-  DB_PASSWORD    = data.aws_ssm_parameter.password.arn
-  DB_USER        = data.aws_ssm_parameter.username.arn
-  DB_PORT        = data.aws_ssm_parameter.port.arn
-  SESSION_SECRET = data.aws_ssm_parameter.secret.arn
-}
+
 
 #module for ECS
 module "ecs" {
@@ -45,7 +38,7 @@ module "ecs" {
   alb_arn_suffix          = module.alb.alb_arn_suffix
   target_group_arn_suffix = module.alb.target_grp_arn_suffix
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 

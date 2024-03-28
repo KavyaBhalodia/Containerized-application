@@ -12,7 +12,7 @@ resource "aws_db_instance" "containerized_app_db" {
   storage_type           = "gp2"
   db_subnet_group_name   = aws_db_subnet_group.subnet_grp.name
   vpc_security_group_ids = var.rds_sg
-  availability_zone      = "us-west-2a"
+  availability_zone      = "ap-south-1a"
 }
 
 #subnet_grp for database

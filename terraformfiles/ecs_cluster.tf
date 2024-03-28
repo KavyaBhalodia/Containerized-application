@@ -9,6 +9,6 @@ module "ecs_cluster" {
   ]
 
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }

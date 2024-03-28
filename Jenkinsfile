@@ -55,11 +55,8 @@ pipeline{
         stage('terraform apply'){
             steps{
                 script{
-                    if("${branch}" == 'dev'){
-                    withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId:"aws-credential",
-                    ]])
+                    if("${branch}" == 'main'){
+                    aws_credentials
                     {
                     bat'''
                     terraform apply -auto-approve
@@ -70,4 +67,5 @@ pipeline{
         }   
     }
 }
+
 }

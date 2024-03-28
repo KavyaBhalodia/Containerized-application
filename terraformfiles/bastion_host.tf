@@ -5,6 +5,6 @@ module "bastion_host_name" {
   subnet_id         = module.vpc.public_subnet_id
   bastion_host_sg   = [module.bastion_host_security_group.sg_id]
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }

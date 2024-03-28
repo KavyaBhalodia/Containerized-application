@@ -1,10 +1,10 @@
 provider "aws" {
   region = "ap-south-1"
 }
-provider "aws" {
-  alias  = "sandbox"
-  region = "us-west-2"
-}
+# provider "aws" {
+#   alias  = "sandbox"
+#   region = "us-west-2"
+# }
 terraform {
   required_providers {
     aws = {
@@ -13,10 +13,10 @@ terraform {
     }
   }
   backend "s3" {
-    profile = "sandbox"
-    bucket  = "kavya-containerized-app-tfstate"
+    profile = "default"
+    bucket  = "kavya-tfstate"
     key     = "state/terraform.tfstate"
-    region  = "us-west-2"
+    region  = "ap-south-1"
     # dynamodb_table = "containerized-application-tf-lockID"
   }
 }
