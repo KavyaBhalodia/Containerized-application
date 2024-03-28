@@ -21,18 +21,18 @@ pipeline{
                 }
             }
         } 
-      stage('terraform destroy'){
-            steps{
-                script{
-                    aws_credentials(){
-                    bat'''
-                    cd terraformfiles
-                    terraform destroy -auto-approve
-                    '''
-                    }   
-                }
-            }
-      }
+    //   stage('terraform destroy'){
+    //         steps{
+    //             script{
+    //                 aws_credentials(){
+    //                 bat'''
+    //                 cd terraformfiles
+    //                 terraform destroy -auto-approve
+    //                 '''
+    //                 }   
+    //             }
+    //         }
+    //   }
         stage('terraform init'){
             steps{
                 script{
