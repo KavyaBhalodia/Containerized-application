@@ -64,3 +64,27 @@ variable "role_arn" {
 variable "region" {
   type = string
 }
+variable "policy_name" {
+  type = string
+}
+variable "target" {
+  type = number
+}
+variable "scale_in_cooldown" {
+  type = number
+}
+variable "scale_out_cooldown" {
+  type = number
+}
+variable "cluster_name" {
+  type = string
+}
+variable "alb_arn_suffix" {
+  type = string
+}
+variable "target_group_arn_suffix" {
+  type = string
+}
+variable "secret_variables" {
+  
+}
