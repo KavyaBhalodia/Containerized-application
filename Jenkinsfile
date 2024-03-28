@@ -15,7 +15,7 @@ pipeline{
                 script{
                 //git branch: "${params.branch.split('/').last()}", 
                 def branch=git rev-parse --abbrev-ref HEAD
-                git branch: "${env.}",
+                git branch: "${env.branch}",
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
