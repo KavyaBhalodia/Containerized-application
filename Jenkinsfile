@@ -38,7 +38,7 @@ pipeline{
                 script{
                     bat'''
                     cd terraformfiles
-                    terraform init
+                    terraform init -backend-config="profile=default"
                     '''
                 }
             }
