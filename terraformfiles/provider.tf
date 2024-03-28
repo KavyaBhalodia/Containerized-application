@@ -13,7 +13,7 @@ terraform {
     }
   }
   backend "s3" {
-    profile = "terraform-user-1"
+    //profile = "default"
     bucket  = "kavya-tfstate"
     key     = "state/terraform.tfstate"
     region  = "ap-south-1"
