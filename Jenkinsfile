@@ -7,6 +7,7 @@ def aws_credentials = {
                     ]]){}      
     }
 } 
+
 pipeline{
     agent any
     stages{
