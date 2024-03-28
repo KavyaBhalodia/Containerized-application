@@ -85,3 +85,6 @@ variable "alb_arn_suffix" {
 variable "target_group_arn_suffix" {
   type = string
 }
+variable "secret_variables" {
+  
+}

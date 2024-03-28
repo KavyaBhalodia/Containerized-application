@@ -8,7 +8,7 @@ module "alb" {
   public_subnets    = module.vpc.public_subnets
   access_log_bucket = module.s3.access_log_bucket
   vpc_id            = module.vpc.vpc_id
-  alb_logs_prefix = "alblogs"
+  alb_logs_prefix   = "alblogs"
   providers = {
     aws = aws.sandbox
   }

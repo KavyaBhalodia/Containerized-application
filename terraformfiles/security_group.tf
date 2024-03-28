@@ -5,15 +5,15 @@ module "alb_security_group" {
   sg_name = "${local.env}-containerized_app_alb_sg"
   ingress_rules = [
     {
-      from_port   = 80,
-      to_port     = 80,
-      cidr_blocks = ["0.0.0.0/0"],
+      from_port        = 80,
+      to_port          = 80,
+      cidr_blocks      = ["0.0.0.0/0"],
       ipv6_cidr_blocks = ["::/0"]
     },
     {
       from_port        = 443,
       to_port          = 443,
-      cidr_blocks = ["0.0.0.0/0"],
+      cidr_blocks      = ["0.0.0.0/0"],
       ipv6_cidr_blocks = ["::/0"]
     }
   ]

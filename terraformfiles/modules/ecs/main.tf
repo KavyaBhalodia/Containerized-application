@@ -1,14 +1,26 @@
 
+
 #local block to map envirnment values
 locals {
   environment = flatten([
     for name, value in var.environment_variable : [
       {
+        
         name  = name
         value = value
       }
+      
   ]])
+    secret = flatten([
+    for name, value in var.secret_variables : [
+      {
+        name  = name
+        valueFrom = value
+      }
+  ]]
+  )
 }
+
 #ECS task definition 
 resource "aws_ecs_task_definition" "containerized_application_task" {
   family                   = "service"
@@ -33,8 +45,8 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
           hostPort      = var.host_port
         }
       ]
-       environment = "${local.environment}"
-
+      environment = "${local.environment}"
+      //secrets="${local.secret}"
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -59,14 +71,13 @@ resource "aws_cloudwatch_log_group" "container_logs" {
     Application = "service"
   }
 }
+
 #ECS service
 resource "aws_ecs_service" "containerized_application_ecs_service" {
   name            = var.ecs_service_name
   cluster         = var.ecs_cluster_id
   task_definition = aws_ecs_task_definition.containerized_application_task.arn
   desired_count   = 1
- 
-
   load_balancer {
     target_group_arn = var.target_grp_arn
     container_name   = var.container_name
@@ -125,6 +136,5 @@ resource "aws_iam_role" "ECS-Autoscaling-role" {
 
 #Data source for IAM policy
 data "aws_iam_policy" "aws-ecs-policy" {
- name = "AmazonEC2ContainerServiceAutoscaleRole"
-  
+ name = "AmazonEC2ContainerServiceAutoscaleRole" 
 }
