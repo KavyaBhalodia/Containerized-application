@@ -20,66 +20,66 @@ pipeline{
                 }
             }
         }
-        stage('checkout'){
-            steps{
-                script{
-                //git branch: "${params.branch.split('/').last()}", 
+    //     stage('checkout'){
+    //         steps{
+    //             script{
+    //             //git branch: "${params.branch.split('/').last()}", 
                 
-                git branch: 'test',
-                credentialsId: 'git-credentials',
-                url: "${env.github_url}"
-                }
+    //             git branch: 'test',
+    //             credentialsId: 'git-credentials',
+    //             url: "${env.github_url}"
+    //             }
 
 
-            }
-        } 
-    //   stage('terraform destroy'){
+    //         }
+    //     } 
+    // //   stage('terraform destroy'){
+    // //         steps{
+    // //             script{
+    // //                 aws_credentials(){
+    // //                 bat'''
+    // //                 cd terraformfiles
+    // //                 terraform destroy -auto-approve
+    // //                 '''
+    // //                 }   
+    // //             }
+    // //         }
+    // //   }
+    //     stage('terraform init'){
+    //         steps{
+    //             script{
+    //                 bat'''
+    //                 cd terraformfiles
+    //                 terraform init -reconfigure
+    //                 '''
+    //             }
+    //         }
+    //     }
+    //     stage('terraform plan'){
     //         steps{
     //             script{
     //                 aws_credentials(){
     //                 bat'''
     //                 cd terraformfiles
-    //                 terraform destroy -auto-approve
+    //                 terraform plan 
     //                 '''
-    //                 }   
+    //                 }
+    //             } 
+    //         }
+    //     }
+    //     stage('terraform apply'){
+    //         steps{
+    //             script{
+    //                 if("${branch}" == 'main'){
+    //                 aws_credentials
+    //                 {
+    //                 bat'''
+    //                 terraform apply -auto-approve
+    //                 '''
+    //                 }
     //             }
     //         }
-    //   }
-        stage('terraform init'){
-            steps{
-                script{
-                    bat'''
-                    cd terraformfiles
-                    terraform init -reconfigure
-                    '''
-                }
-            }
-        }
-        stage('terraform plan'){
-            steps{
-                script{
-                    aws_credentials(){
-                    bat'''
-                    cd terraformfiles
-                    terraform plan 
-                    '''
-                    }
-                } 
-            }
-        }
-        stage('terraform apply'){
-            steps{
-                script{
-                    if("${branch}" == 'main'){
-                    aws_credentials
-                    {
-                    bat'''
-                    terraform apply -auto-approve
-                    '''
-                    }
-                }
-            }
-        }   
-    }
+    //     }   
+    // }
 }
 }
