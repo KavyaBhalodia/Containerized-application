@@ -1,5 +1,6 @@
 provider "aws" {
   region = "ap-south-1"
+  profile = "terraform-user-1"
 }
 # provider "aws" {
 #   alias  = "sandbox"
