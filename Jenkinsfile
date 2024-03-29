@@ -11,6 +11,15 @@ def aws_credentials = {
 pipeline{
     agent any
     stages{
+        stage('profile'){
+            steps{
+                script{
+                    aws_credentials{
+                        aws sts get-caller-identity
+                    }
+                }
+            }
+        }
         stage('checkout'){
             steps{
                 script{
