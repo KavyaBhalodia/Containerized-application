@@ -15,7 +15,9 @@ pipeline{
             steps{
                 script{
                     aws_credentials(){
+                        bat'''
                         aws sts get-caller-identity
+                        '''
                     }
                 }
             }
