@@ -10,20 +10,7 @@ def  aws_credentials = {
                     
 pipeline{
     agent any
-    stages{
-        // stage('checkout'){
-        //     steps{
-                
-        //         script{
-        //         def currentBranch = env.BRANCH_NAME
-        //         git branch:"${currentBranch}", 
-        //         credentialsId: 'git-credentials',
-        //         url: "${env.github_url}"
-        //         }
-        //     }
-        // }
-    
-        
+    stages{ 
       stage('terraform destroy'){
             steps{
                 script{
@@ -64,22 +51,21 @@ pipeline{
                 }
             }
         }
-    //     stage('terraform apply'){
-    //         steps{
-    //             script{
-    //                 withCredentials([[
-    //                 $class: 'AmazonWebServicesCredentialsBinding', 
-    //                 credentialsId:"aws-credential",
-    //                 ]])
-    //                 {
-    //                 bat'''
-    //                 terraform apply -auto-approve
-    //                 '''
-    //             }
-    //         }
-    //     }
+        stage('terraform apply'){
+            steps{
+                script{
+                    withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId:"aws-credential",
+                    ]])
+                    {
+                    bat'''
+                    terraform apply -auto-approve
+                    '''
+                }
+            }
+        }
         
-    // }
-    //}
+    }
     }
 }
