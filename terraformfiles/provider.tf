@@ -1,6 +1,6 @@
 provider "aws" {
   region = "ap-south-1"
-  profile = "terraform-user-1"
+  profile = "kavya"
 }
 # provider "aws" {
 #   alias  = "sandbox"
@@ -14,7 +14,7 @@ terraform {
     }
   }
   backend "s3" {
-    profile = "terraform-user-1"
+    profile = "kavya"
     bucket  = "kavya-tfstate"
     key     = "state/terraform.tfstate"
     region  = "ap-south-1"
