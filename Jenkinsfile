@@ -39,7 +39,7 @@ pipeline{
                 script{
                     bat'''
                     cd terraformfiles
-                    terraform init -reconfigure
+                    terraform init
                     '''
                 }
             }
