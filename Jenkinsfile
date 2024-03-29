@@ -37,6 +37,8 @@ pipeline{
             }
         }
       }
+
+      
         stage('terraform init'){
             steps{
                 script{
