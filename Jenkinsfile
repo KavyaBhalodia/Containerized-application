@@ -14,7 +14,7 @@ pipeline{
         stage('profile'){
             steps{
                 script{
-                    aws_credentials{
+                    aws_credentials(){
                         aws sts get-caller-identity
                     }
                 }
