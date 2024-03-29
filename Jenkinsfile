@@ -85,11 +85,13 @@ pipeline{
                 def pull_id=env.ghprbPullId
                 def commit_author=env.ghprbActualCommitAuthor
                 def commit_author_email=env.ghprbActualCommitAuthorEmail
+                def branch=env.BRANCH_NAME
                 echo "${source_branch}"
                 echo "${target_branch}"
                 echo "${pull_id}"
                 echo "${commit_author}"
                 echo "${commit_author_email}"
+                echo "${branch}"
                 }
             }
         }
