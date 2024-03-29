@@ -15,8 +15,8 @@ pipeline{
             steps{
                 script{
                 //git branch: "${params.branch.split('/').last()}", 
-                def branch='test'
-                git branch: "${branch}",
+                
+                git branch: 'test',
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
