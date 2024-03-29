@@ -38,14 +38,14 @@ pipeline{
         }
       }
 
-      
+
         stage('terraform init'){
             steps{
                 script{
                     aws_credentials{
                     bat'''
                     cd terraformfiles
-                    terraform init
+                    terraform init -reconfigure
                     '''
                     }
                 }
