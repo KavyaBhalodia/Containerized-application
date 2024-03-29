@@ -11,17 +11,17 @@ def  aws_credentials = {
 pipeline{
     agent any
     stages{
-        stage('checkout'){
-            steps{
+        // stage('checkout'){
+        //     steps{
                 
-                script{
-                def currentBranch = env.BRANCH_NAME
-                git branch:"${currentBranch}", 
-                credentialsId: 'git-credentials',
-                url: "${env.github_url}"
-                }
-            }
-        }
+        //         script{
+        //         def currentBranch = env.BRANCH_NAME
+        //         git branch:"${currentBranch}", 
+        //         credentialsId: 'git-credentials',
+        //         url: "${env.github_url}"
+        //         }
+        //     }
+        // }
     
         
       stage('terraform destroy'){
