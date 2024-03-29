@@ -20,6 +20,7 @@ pipeline{
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
+                
             }
         } 
     //   stage('terraform destroy'){
