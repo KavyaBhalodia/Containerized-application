@@ -15,13 +15,13 @@ pipeline{
             steps{
                 script{
                 //git branch: "${params.branch.split('/').last()}", 
-                
-                git branch: "test",
+                def branch='git rev-parse --abbrev-ref HEAD'
+                git branch: "${branch}",
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
 
-                
+
             }
         } 
     //   stage('terraform destroy'){
