@@ -16,7 +16,7 @@ pipeline{
                 
                 script{
                 def currentBranch = env.BRANCH_NAME
-                git branch:"${currentBranch}, 
+                git branch:"${currentBranch}", 
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
