@@ -16,7 +16,7 @@ pipeline{
                 script{
                 //git branch: "${params.branch.split('/').last()}", 
                 
-                git branch: test,
+                git branch: 'test',
                 credentialsId: 'git-credentials',
                 url: "${env.github_url}"
                 }
@@ -24,18 +24,18 @@ pipeline{
 
             }
         } 
-      stage('terraform destroy'){
-            steps{
-                script{
-                    aws_credentials(){
-                    bat'''
-                    cd terraformfiles
-                    terraform destroy -auto-approve
-                    '''
-                    }   
-                }
-            }
-      }
+    //   stage('terraform destroy'){
+    //         steps{
+    //             script{
+    //                 aws_credentials(){
+    //                 bat'''
+    //                 cd terraformfiles
+    //                 terraform destroy -auto-approve
+    //                 '''
+    //                 }   
+    //             }
+    //         }
+    //   }
         stage('terraform init'){
             steps{
                 script{
