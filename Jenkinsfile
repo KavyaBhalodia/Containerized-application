@@ -28,18 +28,20 @@ pipeline{
         }
         
 
-        
-    //   stage('terraform destroy'){
-    //         steps{
-    //             script{
-    //                 bat'''
+
+      stage('terraform destroy'){
+            steps{
+                script{
+                    bat'''
                     
-    //                 cd terraformfiles
-    //                 terraform destroy -auto-approve
-    //                 '''
-    //         }
-    //     }
-    //   }
+                    cd terraformfiles
+                    terraform destroy -auto-approve
+                    '''
+            }
+        }
+      }
+
+      
 
         stage('terraform init'){
             steps{
