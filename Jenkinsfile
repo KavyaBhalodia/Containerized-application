@@ -2,9 +2,7 @@ def  aws_credentials = {
      withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId:"aws-credential",
-                    ]]){
-                        
-                    }
+                    ]])
     
 }
                     
