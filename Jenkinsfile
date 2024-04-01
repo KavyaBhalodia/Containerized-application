@@ -25,21 +25,21 @@ pipeline{
                 }
             }
         }
-      stage('terraform destroy'){
-            steps{
-                script{
+    //   stage('terraform destroy'){
+    //         steps{
+    //             script{
                     
-                    bat'''
-                    aws s3 ls
-                    cd terraformfiles
-                    terraform destroy -auto-approve
-                    '''
+    //                 bat'''
+    //                 aws s3 ls
+    //                 cd terraformfiles
+    //                 terraform destroy -auto-approve
+    //                 '''
                         
                     
                     
-            }
-        }
-      }
+    //         }
+    //     }
+    //   }
 
 
         stage('terraform init'){
