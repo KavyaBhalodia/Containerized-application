@@ -8,6 +8,8 @@ locals {
   env = data.external.git_branch.result["branch"]
 }
 
-
+output "branch" {
+  value = "${local.env}"
+}
 
 
