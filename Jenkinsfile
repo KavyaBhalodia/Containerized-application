@@ -26,9 +26,6 @@ pipeline{
                 }
             }
         }
-        
-
-
       stage('terraform destroy'){
             steps{
                 script{
