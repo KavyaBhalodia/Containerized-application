@@ -14,8 +14,7 @@ pipeline{
       stage('terraform destroy'){
             steps{
                 script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    echo "${BRANCH_NAME}"
+                    
                     aws_credentials(){
                     bat'''
                     terraform destroy -auto-approve
@@ -31,12 +30,15 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    if("${BRANCH_NAME}" != 'main' )
+                    {
                     aws_credentials(){
                     bat'''
                     cd terraformfiles
                     terraform init -reconfigure
                     '''
+                    }
                     }
                 }
             }
@@ -44,11 +46,15 @@ pipeline{
         stage('terraform plan'){
             steps{
                 script{
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    if("${BRANCH_NAME}" != 'main' )
+                    {
                     aws_credentials(){
                     bat'''
                     cd terraformfiles
                     terraform plan 
                     '''
+                    }
                     }
                 }
             }
@@ -56,7 +62,7 @@ pipeline{
         stage('terraform apply'){
             steps{
                 script{
-                    if("${branch}" == 'dev'){
+                   {
                     aws_credentials(){
                     bat'''
                     terraform apply -auto-approve
