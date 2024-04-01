@@ -25,7 +25,7 @@ pipeline{
             steps{
                 script{
                     
-                    aws_credentials{
+                    aws_credentials(){
                     
                     aws s3 ls
                     cd terraformfiles
