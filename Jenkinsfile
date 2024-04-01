@@ -1,4 +1,4 @@
-def  aws_credentials(){
+def  aws_credentials={
      withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId:"aws-credential",
@@ -25,12 +25,12 @@ pipeline{
             steps{
                 script{
                     
-                    aws_credentials(){
-                    
+                    aws_credentials{
+                    bat'''
                     aws s3 ls
                     cd terraformfiles
                     terraform destroy -auto-approve
-                    
+                    '''
                         
                     }
                     
