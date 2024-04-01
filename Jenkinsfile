@@ -76,10 +76,12 @@ pipeline{
       stage('email'){
             steps{
                 script{
-                    def email=env.CHANGE_AUTHOR_EMAIL
-                    def id=env.CHANGE_ID
-                    echo "${id}"
-                    echo "${email}"
+                    // def email=env.CHANGE_AUTHOR_EMAIL
+                    // def id=env.CHANGE_ID
+                    // echo "${id}"
+                    // echo "${email}"
+                    def commitAuthorEmail = sh(script: 'git log --format=%ae -n 1', returnStdout: true).trim()
+                    echo "Commit Author Email: ${commitAuthorEmail}"
                 }
             }
     }
