@@ -15,7 +15,7 @@ pipeline{
             steps{
                 script{
                     
-                    aws_credentials(){
+                    aws_credentials{
                     bat'''
                     terraform destroy -auto-approve
                     '''
