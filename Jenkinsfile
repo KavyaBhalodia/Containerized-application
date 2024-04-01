@@ -27,53 +27,53 @@ pipeline{
       }
 
 
-        stage('terraform init'){
-            steps{
-                script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" != 'main' )
-                    {
-                    aws_credentials(){
-                    bat'''
-                    cd terraformfiles
-                    terraform init -reconfigure
-                    '''
-                    }
-                    }
-                }
-            }
-        }
-        stage('terraform plan'){
-            steps{
-                script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" != 'main' )
-                    {
-                    aws_credentials(){
-                    bat'''
-                    cd terraformfiles
-                    terraform plan 
-                    '''
-                    }
-                    }
-                }
-            }
-        }
-        stage('terraform apply'){
-            steps{
-                script{
+    //     stage('terraform init'){
+    //         steps{
+    //             script{
+    //                 def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+    //                 if("${BRANCH_NAME}" != 'main' )
+    //                 {
+    //                 aws_credentials(){
+    //                 bat'''
+    //                 cd terraformfiles
+    //                 terraform init -reconfigure
+    //                 '''
+    //                 }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     stage('terraform plan'){
+    //         steps{
+    //             script{
+    //                 def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+    //                 if("${BRANCH_NAME}" != 'main' )
+    //                 {
+    //                 aws_credentials(){
+    //                 bat'''
+    //                 cd terraformfiles
+    //                 terraform plan 
+    //                 '''
+    //                 }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     stage('terraform apply'){
+    //         steps{
+    //             script{
 
                    
-                    aws_credentials(){
-                    bat'''
-                    terraform apply -auto-approve
-                    '''
+    //                 aws_credentials(){
+    //                 bat'''
+    //                 terraform apply -auto-approve
+    //                 '''
                     
-                }
-            }
-        }
+    //             }
+    //         }
+    //     }
         
-    }
+    // }
     }
 }
 
