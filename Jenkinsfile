@@ -47,14 +47,14 @@ pipeline{
                 script{
                     // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     // if("${BRANCH_NAME}" != 'main' )
-                    {
+                    
                    
                     bat'''
                     cd terraformfiles
                     terraform init -reconfigure
                     '''
                     
-                    }
+                    
                 }
             }
         }
