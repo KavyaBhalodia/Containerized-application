@@ -1,10 +1,10 @@
-def  aws_credentials={
-     withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId:"aws-credential",
-                    ]]){}
+// def  aws_credentials={
+//      withCredentials([[
+//                     $class: 'AmazonWebServicesCredentialsBinding', 
+//                     credentialsId:"aws-credential",
+//                     ]]){}
     
-}
+// }
                     
 pipeline{
     agent any
@@ -17,6 +17,7 @@ pipeline{
         {
             steps{
                 script{
+                    
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     echo "${BRANCH_NAME}"
                     git branch: "${BRANCH_NAME}", 
@@ -25,23 +26,17 @@ pipeline{
                 }
             }
         }
-    //   stage('terraform destroy'){
-    //         steps{
-    //             script{
-                    
-    //                 bat'''
-    //                 aws s3 ls
-    //                 cd terraformfiles
-    //                 terraform destroy -auto-approve
-    //                 '''
-                        
-                    
-                    
-    //         }
-    //     }
-    //   }
-
-
+      stage('terraform destroy'){
+            steps{
+                script{
+                    bat'''
+                    aws s3 ls
+                    cd terraformfiles
+                    terraform destroy -auto-approve
+                    '''
+            }
+        }
+      }
         stage('terraform init'){
             steps{
                 script{
@@ -61,34 +56,27 @@ pipeline{
         stage('terraform plan'){
             steps{
                 script{
-                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    // if("${BRANCH_NAME}" != 'main' )
-                    // {
-                    //aws_credentials(){
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    if("${BRANCH_NAME}" != 'main' )
+                    {
                     bat'''
                     cd terraformfiles
                     terraform plan 
                     '''
-                    // }
-                    // }
+                    }
                 }
             }
         }
-    //     stage('terraform apply'){
-    //         steps{
-    //             script{
-
-                   
-    //                 aws_credentials(){
-    //                 bat'''
-    //                 terraform apply -auto-approve
-    //                 '''
-                    
-    //             }
-    //         }
-    //     }
+        stage('terraform apply'){
+            steps{
+                script{
+                    bat'''
+                    terraform apply -auto-approve
+                    '''
+            }
+        }
         
-    // }
+    }
     }
 }
 
