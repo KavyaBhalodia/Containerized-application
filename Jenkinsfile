@@ -1,17 +1,17 @@
-// def  aws_credentials={
-//      withCredentials([[
-//                     $class: 'AmazonWebServicesCredentialsBinding', 
-//                     credentialsId:"aws-credential",
-//                     ]]){}
+def  aws_credentials={
+     withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId:"aws-credential",
+                    ]]){}
     
-// }
+}
                     
 pipeline{
     agent any
-    environment{
-        AWS_ACCESS_KEY_ID = credentials('aws-credential')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-credential')
-    }
+    // environment{
+    //     AWS_ACCESS_KEY_ID = credentials('aws-credential')
+    //     AWS_SECRET_ACCESS_KEY = credentials('aws-credential')
+    // }
     stages{
         stage('git checkout')
         {
@@ -29,7 +29,7 @@ pipeline{
             steps{
                 script{
                     
-                   
+                   aws_credentials()
                     bat'''
                     aws s3 ls
                     cd terraformfiles
