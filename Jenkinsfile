@@ -10,7 +10,19 @@ def  aws_credentials = {
                     
 pipeline{
     agent any
-    stages{ 
+    stages{
+        stage('git checkout')
+        {
+            steps{
+                script{
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    echo "${BRANCH_NAME}"
+                    git branch: "${BRANCH_NAME}", 
+                    credentialsId: 'git-credentials',
+                    url: "${env.github_url}"
+                }
+            }
+        }
       stage('terraform destroy'){
             steps{
                 script{
