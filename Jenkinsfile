@@ -26,6 +26,7 @@ pipeline{
                 }
             }
         }
+        
     //   stage('terraform destroy'){
     //         steps{
     //             script{
@@ -37,7 +38,7 @@ pipeline{
     //         }
     //     }
     //   }
-    
+
         stage('terraform init'){
             steps{
                 script{
