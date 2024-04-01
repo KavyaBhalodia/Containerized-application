@@ -15,10 +15,12 @@ pipeline{
                 // echo "BRANCH-1"
                     // def commitAuthorEmail = bat(script: 'git log --format=%ae -n 1', returnStdout: true).trim()
                     // echo "Commit Author Email: ${commitAuthorEmail}"
-                    def email=env.GIT_COMMITTER_EMAIL
-                    echo "${email}"
+             def COMMITTER_EMAIL = bat (
+                script: "git --no-pager show -s --format=%%ae",
+                  returnStdout: true
+              ).split('\r\n')[2].trim()
 
-
+    echo "The last commit was written by ${COMMITTER_EMAIL}"
 
              
                 }
