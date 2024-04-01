@@ -62,12 +62,13 @@ pipeline{
         stage('terraform apply'){
             steps{
                 script{
-                   {
+
+                   
                     aws_credentials(){
                     bat'''
                     terraform apply -auto-approve
                     '''
-                    }
+                    
                 }
             }
         }
