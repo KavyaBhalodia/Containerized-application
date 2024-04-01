@@ -29,6 +29,7 @@ pipeline{
                     
                     aws_credentials(){
                     bat'''
+                    aws s3 ls
                     cd terraformfiles
                     terraform destroy -auto-approve
                     '''
