@@ -26,11 +26,16 @@ data "aws_ssm_parameter" "secret" {
   name     = "/kavya/rds/session_secret"
   provider = aws
 }
+data "aws_ssm_parameter" "db_database" {
+  name     = "/kavya/rds/db_database"
+  provider = aws
+}
 #local variables that refer to ssm parameters
 locals {
-  DB_HOST        = data.aws_ssm_parameter.host.arn
-  DB_PASSWORD    = data.aws_ssm_parameter.password.arn
-  DB_USER        = data.aws_ssm_parameter.username.arn
-  DB_PORT        = data.aws_ssm_parameter.port.arn
-  SESSION_SECRET = data.aws_ssm_parameter.secret.arn
+  DB_HOST        = data.aws_ssm_parameter.host.name
+  DB_PASSWORD    = data.aws_ssm_parameter.password.name
+  DB_USER        = data.aws_ssm_parameter.username.name
+  DB_PORT        = data.aws_ssm_parameter.port.name
+  SESSION_SECRET = data.aws_ssm_parameter.secret.name
+  DB_DATABASE    = data.aws_ssm_parameter.db_database.name
 }

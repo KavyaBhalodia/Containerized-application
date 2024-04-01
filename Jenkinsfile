@@ -14,7 +14,9 @@ pipeline{
       stage('terraform destroy'){
             steps{
                 script{
-                    aws_credentials{
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    echo "${BRANCH_NAME}"
+                    aws_credentials(){
                     bat'''
                     terraform destroy -auto-approve
                     '''
@@ -29,7 +31,8 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                    aws_credentials{
+                
+                    aws_credentials(){
                     bat'''
                     cd terraformfiles
                     terraform init -reconfigure
@@ -41,8 +44,7 @@ pipeline{
         stage('terraform plan'){
             steps{
                 script{
-                    aws_credentials{
-                    
+                    aws_credentials(){
                     bat'''
                     cd terraformfiles
                     terraform plan 
@@ -54,14 +56,12 @@ pipeline{
         stage('terraform apply'){
             steps{
                 script{
-                    withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId:"aws-credential",
-                    ]])
-                    {
+                    if("${branch}" == 'dev'){
+                    aws_credentials(){
                     bat'''
                     terraform apply -auto-approve
                     '''
+                    }
                 }
             }
         }
