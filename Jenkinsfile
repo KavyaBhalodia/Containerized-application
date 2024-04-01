@@ -1,10 +1,10 @@
-// def  aws_credentials={
-//      withCredentials([[
-//                     $class: 'AmazonWebServicesCredentialsBinding', 
-//                     credentialsId:"aws-credential",
-//                     ]]){}
+def  aws_credentials={
+     withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId:"aws-credential",
+                    ]]){}
     
-// }
+}
                     
 pipeline{
     agent any
@@ -45,15 +45,15 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" != 'main' )
+                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    // if("${BRANCH_NAME}" != 'main' )
                     {
-                    aws_credentials(){
+                   
                     bat'''
                     cd terraformfiles
                     terraform init -reconfigure
                     '''
-                    }
+                    
                     }
                 }
             }
