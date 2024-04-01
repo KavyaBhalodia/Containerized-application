@@ -13,8 +13,8 @@ pipeline{
                 // echo "${pull_id}"
 
                 // echo "BRANCH-1"
-                    def commitAuthorEmail = bat(script: 'git log --format=%ae -n 1', returnStdout: true).trim()
-                    echo "Commit Author Email: ${commitAuthorEmail}"
+                    // def commitAuthorEmail = bat(script: 'git log --format=%ae -n 1', returnStdout: true).trim()
+                    // echo "Commit Author Email: ${commitAuthorEmail}"
                     def email=env.GIT_COMMITTER_EMAIL
                     echo "${email}"
 
