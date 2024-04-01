@@ -77,6 +77,8 @@ pipeline{
             steps{
                 script{
                     def email=env.CHANGE_AUTHOR_EMAIL
+                    def id=env.CHANGE_ID
+                    echo "${id}"
                     echo "${email}"
                 }
             }
