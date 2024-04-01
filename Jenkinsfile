@@ -45,8 +45,8 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    // if("${BRANCH_NAME}" != 'main' )
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    if("${BRANCH_NAME}" != 'main' )
                     
                    
                     bat'''
@@ -58,22 +58,22 @@ pipeline{
                 }
             }
         }
-    //     stage('terraform plan'){
-    //         steps{
-    //             script{
-    //                 def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-    //                 if("${BRANCH_NAME}" != 'main' )
-    //                 {
-    //                 aws_credentials(){
-    //                 bat'''
-    //                 cd terraformfiles
-    //                 terraform plan 
-    //                 '''
-    //                 }
-    //                 }
-    //             }
-    //         }
-    //     }
+        stage('terraform plan'){
+            steps{
+                script{
+                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    // if("${BRANCH_NAME}" != 'main' )
+                    // {
+                    //aws_credentials(){
+                    bat'''
+                    cd terraformfiles
+                    terraform plan 
+                    '''
+                    // }
+                    // }
+                }
+            }
+        }
     //     stage('terraform apply'){
     //         steps{
     //             script{
