@@ -58,6 +58,8 @@ pipeline{
                 }
             }
         }
+
+        
         stage('terraform plan'){
             steps{
                 script{
