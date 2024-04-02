@@ -28,7 +28,7 @@ module "alb_security_group" {
     }
   ]
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 
@@ -52,7 +52,7 @@ module "ecs_security_group" {
   ]
 
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 
@@ -76,7 +76,7 @@ module "rds_security_group" {
     },
   ]
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 
@@ -100,6 +100,6 @@ module "bastion_host_security_group" {
     },
   ]
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }

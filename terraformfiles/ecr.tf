@@ -2,9 +2,9 @@
 module "ecr" {
   source         = "./modules/ecr"
   ecr_repository = "${local.env}-containerized_app_repository"
-  region         = "us-west-2"
+  region         = "ap-south-1"
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 

@@ -7,3 +7,6 @@ output "db_username" {
 output "name" {
   value = aws_db_instance.containerized_app_db.identifier
 }
+output "db_host" {
+  value = aws_db_instance.containerized_app_db.endpoint
+}

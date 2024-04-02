@@ -1,11 +1,4 @@
-#local variables that refer to ssm parameters
-locals {
-  DB_HOST        = data.aws_ssm_parameter.host.arn
-  DB_PASSWORD    = data.aws_ssm_parameter.password.arn
-  DB_USER        = data.aws_ssm_parameter.username.arn
-  DB_PORT        = data.aws_ssm_parameter.port.arn
-  SESSION_SECRET = data.aws_ssm_parameter.secret.arn
-}
+
 
 #module for ECS
 module "ecs" {
@@ -20,14 +13,14 @@ module "ecs" {
   container_log_grp_name = "${local.env}-containerized_app_log_grp"
   ecs_service_name       = "${local.env}-containerized_app_service"
   environment_variable = {
-    DB_PORT        = "${local.DB_PORT}"
     SESSION_SECRET = "${local.SESSION_SECRET}"
-
   }
   secret_variables = {
     DB_PASSWORD = "${local.DB_PASSWORD}"
     DB_USER     = "${local.DB_USER}"
     DB_HOST     = "${local.DB_HOST}"
+    DB_PORT     = "${local.DB_PORT}"
+    DB_DATABASE = "${local.DB_DATABASE}"
   }
 
   image_url               = module.ecr.image_url
@@ -35,7 +28,7 @@ module "ecs" {
   private_subnets         = module.vpc.private_subnets
   ecs_sg_id               = [module.ecs_security_group.sg_id]
   role_arn                = data.aws_iam_role.my_ecstask_role.arn
-  region                  = "us_west_2"
+  region                  = "ap-south-1"
   ecs_cluster_id          = module.ecs_cluster.ecs_cluster_id
   policy_name             = "ecs-autoscaling-policy"
   target                  = 2
@@ -45,7 +38,7 @@ module "ecs" {
   alb_arn_suffix          = module.alb.alb_arn_suffix
   target_group_arn_suffix = module.alb.target_grp_arn_suffix
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 

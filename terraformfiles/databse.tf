@@ -8,6 +8,6 @@ module "database" {
   public_subnets  = module.vpc.public_subnets
   rds_sg          = [module.rds_security_group.sg_id]
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }

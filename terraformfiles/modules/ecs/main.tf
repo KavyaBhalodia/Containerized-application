@@ -46,12 +46,12 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
         }
       ]
       environment = "${local.environment}"
-      //secrets="${local.secret}"
+      secrets="${local.secret}"
       logConfiguration = {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = var.container_log_grp_name
-          "awslogs-region"        = "us-west-2"
+          "awslogs-region"        = "ap-south-1"
           "awslogs-stream-prefix" = "alblogs"
         }
       }

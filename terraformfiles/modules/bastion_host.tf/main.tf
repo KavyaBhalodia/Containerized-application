@@ -7,7 +7,7 @@ data "aws_key_pair" "kavya" {
 
 #Bastion Host for connecting Database
 resource "aws_instance" "bastion_host" {
-  ami             = "ami-0895022f3dac85884"
+  ami             = "ami-009e46eef82e25fef"
   instance_type   = "t2.micro"
   subnet_id       = var.subnet_id
   security_groups = var.bastion_host_sg

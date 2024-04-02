@@ -10,7 +10,7 @@ module "alb" {
   vpc_id            = module.vpc.vpc_id
   alb_logs_prefix   = "alblogs"
   providers = {
-    aws = aws.sandbox
+    aws = aws
   }
 }
 
