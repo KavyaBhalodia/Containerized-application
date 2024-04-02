@@ -68,6 +68,7 @@ pipeline{
         stage('terraform apply'){
             steps{
                 script{
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     if("${BRANCH_NAME}" == 'main')
                     {
                     bat'''
