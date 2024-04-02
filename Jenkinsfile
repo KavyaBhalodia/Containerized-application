@@ -1,11 +1,4 @@
-// def  aws_credentials={
-//      withCredentials([[
-//                     $class: 'AmazonWebServicesCredentialsBinding', 
-//                     credentialsId:"aws-credential",
-//                     ]]){}
-    
-// }
-                    
+             
 pipeline{
     agent any
     environment{
@@ -26,22 +19,6 @@ pipeline{
                 }
             }
         }
-    //   stage('terraform destroy'){
-    //         steps{
-    //             script{
-    //                 bat'''
-                    
-    //                 cd terraformfiles
-    //                 terraform destroy -auto-approve
-    //                 '''
-    //         }
-    //     }
-    //   }
-
-
-
-
-
         stage('terraform init'){
             steps{
                 script{
@@ -56,33 +33,29 @@ pipeline{
                 }
             }
         }
-
-        
         stage('terraform plan'){
             steps{
                 script{
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" != 'main' )
-                    {
+                    
                     bat'''
                     cd terraformfiles
                     terraform plan 
                     '''
-                    }
+                    
                 }
             }
         }
-    //     stage('terraform apply'){
-    //         steps{
-    //             script{
-    //                 bat'''
-    //                 cd terraformfiles
-    //                 terraform apply -auto-approve
-    //                 '''
-    //         }
-    //     }
-        
-    // }
+        stage('terraform apply'){
+            steps{
+                script{
+                    bat'''
+                    cd terraformfiles
+                    terraform apply -auto-approve
+                    '''
+                }
+            }
+        }
     }
 }
 
