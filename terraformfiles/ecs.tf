@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "containerized-app-ecs-cluster" {
     name  = "containerInsights"
     value = "enabled"
   }
-  provider = aws.sandbox
+  
 
 }
 
@@ -20,7 +20,7 @@ resource "aws_ecs_cluster_capacity_providers" "containerized-app-ecs-capacity-pr
     base              = 1
     weight            = 100
   }
-  provider = aws.sandbox
+  
 }
 
 #local block for enviroment variables 
@@ -73,7 +73,7 @@ resource "aws_ecs_task_definition" "containerized-app-task" {
     operating_system_family = "LINUX"
     cpu_architecture        = "X86_64"
   }
-  provider = aws.sandbox
+  
 }
 
 resource "aws_cloudwatch_log_group" "container-logs" {
@@ -82,7 +82,7 @@ resource "aws_cloudwatch_log_group" "container-logs" {
     Environment = "Dev"
     Application = "service"
   }
-  provider = aws.sandbox
+  
 }
 
 #ECS service
@@ -102,7 +102,7 @@ resource "aws_ecs_service" "containerized-app-ecs-service" {
     subnets         = aws_subnet.private-subnet.*.id
     security_groups = [aws_security_group.ecs-sg.id]
   }
-  provider = aws.sandbox
+  
 }
 resource "aws_appautoscaling_target" "ecs_target" {
   max_capacity       = 3
@@ -111,7 +111,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
   role_arn = aws_iam_role.ECS-Autoscaling-role.arn
-  provider = aws.sandbox
+  
 }
 
 resource "aws_appautoscaling_policy" "ecs_policy" {
@@ -130,7 +130,7 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
      scale_in_cooldown  = 30
     scale_out_cooldown = 30
   }
-  provider = aws.sandbox
+  
 }
 
 resource "aws_iam_role" "ECS-Autoscaling-role" {
@@ -154,19 +154,19 @@ resource "aws_iam_role" "ECS-Autoscaling-role" {
 data "aws_iam_policy" "aws-ecs-policy" {
  name = "AmazonEC2ContainerServiceAutoscaleRole"
   
-  provider = aws.sandbox
+  
 }
 # resource "aws_iam_policy" "ecs-policy" {
 #   name = "ecs-policy"
 #   path = "/"
 #   description = "Allow access to the service elb"
 #   policy = data.aws_iam_policy.aws-ecs-policy.policy_id
-#   provider = aws.sandbox
+#   
 # }
 
 #policy for autoscaling
 resource "aws_iam_role_policy_attachment" "ecs_service_scaling" {
   role = aws_iam_role.ECS-Autoscaling-role.name
   policy_arn = data.aws_iam_policy.aws-ecs-policy.arn
-  provider = aws.sandbox
+  
 }

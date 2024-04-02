@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
   tags = {
     Name = "${local.env}-containerized-app-vpc"
   }
-  provider = aws.sandbox
+   
 }
 
 #Public subnets
@@ -19,7 +19,7 @@ resource "aws_subnet" "public-subnet" {
   tags = {
     Name = "${local.env}-public-subnet-${count.index + 1}"
   }
-  provider = aws.sandbox
+  
 }
 
 #Public subnet route table
@@ -32,7 +32,7 @@ resource "aws_route_table" "public-rt" {
   tags = {
     Name = "${local.env}-public-subnet-rt"
   }
-  provider = aws.sandbox
+   
 }
 
 #Public route table association
@@ -40,7 +40,7 @@ resource "aws_route_table_association" "public-rt-association" {
   count          = length(var.public_subnet_cidr)
   subnet_id      = element(aws_subnet.public-subnet.*.id, count.index)
   route_table_id = aws_route_table.public-rt.id
-  provider       = aws.sandbox
+  
 }
 
 #Private subnets
@@ -52,7 +52,7 @@ resource "aws_subnet" "private-subnet" {
   tags = {
     Name = "${local.env}-private-subnet-${count.index + 1}"
   }
-  provider = aws.sandbox
+  
 }
 
 #Private subnet route table 
@@ -65,7 +65,7 @@ resource "aws_route_table" "private-rt" {
   tags = {
     Name = "${local.env}-private-subnet-rt"
   }
-  provider = aws.sandbox
+ 
 }
 
 #Private route table association
@@ -73,7 +73,7 @@ resource "aws_route_table_association" "private-rt-association" {
   count          = length(var.private_subnet_cidr)
   subnet_id      = element(aws_subnet.private-subnet.*.id, count.index)
   route_table_id = aws_route_table.private-rt.id
-  provider       = aws.sandbox
+ 
 }
 
 #Internet gateway
@@ -82,13 +82,13 @@ resource "aws_internet_gateway" "main-vpc-igw" {
   tags = {
     Name = "${local.env}-containerized-app-igw"
   }
-  provider = aws.sandbox
+  
 }
 
 #Elastic IP for NAT gateway 
 resource "aws_eip" "nat-gateway-eip" {
   domain   = "vpc"
-  provider = aws.sandbox
+  
 }
 
 #NAT gateway
@@ -98,7 +98,7 @@ resource "aws_nat_gateway" "nat-gateway" {
   tags = {
     Name = "${local.env}-conatainerized-app-NATgw"
   }
-  provider = aws.sandbox
+  
 }
 
 
