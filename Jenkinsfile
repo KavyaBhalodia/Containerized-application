@@ -78,6 +78,7 @@ pipeline{
             steps{
                 script{
                     bat'''
+                    cd terraformfiles
                     terraform apply -auto-approve
                     '''
             }
