@@ -46,11 +46,13 @@ pipeline{
             steps{
                 script{
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" == 'dev' || "${BRANCH_NAME} != 'main'" )
+                    if("${BRANCH_NAME}" == 'dev')
+                    {
                     bat'''
                     cd terraformfiles
                     terraform init -reconfigure
                     '''
+                    }
                 }
             }
         }
