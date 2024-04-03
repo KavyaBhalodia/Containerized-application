@@ -7,6 +7,9 @@ data "aws_key_pair" "kavya" {
 
 
 
+
+
+
 #Bastion Host for connecting Database
 resource "aws_instance" "bastion_host" {
   ami             = "ami-009e46eef82e25fef"
