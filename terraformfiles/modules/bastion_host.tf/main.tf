@@ -17,6 +17,8 @@ resource "aws_instance" "bastion_host" {
   }
 }
 
+
+
 #Elastic_ip for instance
 # data "aws_eip" "bastion_host_eip" {
 #   id       = "eipalloc-0f999c6850496ef92"
