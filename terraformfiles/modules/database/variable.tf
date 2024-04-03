@@ -22,3 +22,7 @@ variable "rds_sg" {
   type = list(string)
   description = "RDS Database security group"
 }
+variable "az" {
+  type = string
+  description = "AZ for Database"
+}

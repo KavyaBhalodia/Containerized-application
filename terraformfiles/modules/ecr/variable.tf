@@ -4,5 +4,4 @@ variable "ecr_repository" {
 }
 variable "region" {
   type = string
-  description = "Region where the ECR repository will be created"
 }

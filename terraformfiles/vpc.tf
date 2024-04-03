@@ -10,7 +10,7 @@ module "vpc" {
   public_subnet_cidr  = ["10.0.0.0/24", "10.0.1.0/24"]
   ig_name             = "${local.env}-Internet_gateway"
   NatGW_name          = "${local.env}-Nat_gateway"
-  az                  = ["ap-south-1a", "ap-south-1b"]
+  az                  = var.az
 
   providers = {
     aws = aws

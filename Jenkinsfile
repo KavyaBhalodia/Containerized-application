@@ -36,7 +36,6 @@ pipeline{
             steps{
                 script{
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    
                     bat'''
                     cd terraformfiles
                     terraform plan 

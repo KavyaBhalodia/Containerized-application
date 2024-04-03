@@ -16,7 +16,6 @@ resource "aws_security_group" "sg" {
     }
   }
 
-  
   dynamic "egress" {
     for_each = var.egress_rules
     content {

@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = var.container_log_grp_name
-          "awslogs-region"        = "ap-south-1"
+          "awslogs-region"        = var.region
           "awslogs-stream-prefix" = "alblogs"
         }
       }
