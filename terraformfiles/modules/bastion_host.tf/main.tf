@@ -5,12 +5,6 @@ data "aws_key_pair" "kavya" {
   include_public_key = true
 }
 
-
-
-
-
-
-
 #Bastion Host for connecting Database
 resource "aws_instance" "bastion_host" {
   ami             = "ami-009e46eef82e25fef"
@@ -22,8 +16,6 @@ resource "aws_instance" "bastion_host" {
     Name = var.bastion_host_name
   }
 }
-
-
 
 #Elastic_ip for instance
 # data "aws_eip" "bastion_host_eip" {
