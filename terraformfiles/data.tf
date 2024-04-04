@@ -30,6 +30,7 @@ data "aws_ssm_parameter" "db_database" {
   name     = "/kavya/rds/db_database"
   provider = aws
 }
+
 #local variables that refer to ssm parameters
 locals {
   DB_HOST        = data.aws_ssm_parameter.host.name
