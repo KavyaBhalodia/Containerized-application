@@ -19,7 +19,7 @@ resource "null_resource" "docker_packaging" {
     $GIT_COMMIT_ID = git rev-parse --short HEAD
     docker login
     docker build -t containerized-application ../code
-    docker login --username AWS --password (aws ecr get-login-password --region ap-south-1) 831794387446.dkr.ecr.ap-south-1.amazonaws.com
+    docker login --username AWS --password (aws ecr get-login-password --region ${var.region}) 831794387446.dkr.ecr.${var.region}.amazonaws.com
     docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}"
     docker push "${aws_ecr_repository.containerized_application_repository.repository_url}"
     docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"

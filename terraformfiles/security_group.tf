@@ -21,10 +21,6 @@ module "alb_security_group" {
     {
       from_port = 0,
       to_port   = 0
-    },
-    {
-      from_port = 0,
-      to_port   = 0
     }
   ]
   providers = {

@@ -7,7 +7,6 @@ module "ecs_cluster" {
       capacity_provider = "FARGATE", base = 1, weight = 100
     }
   ]
-
   providers = {
     aws = aws
   }

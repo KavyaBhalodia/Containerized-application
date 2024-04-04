@@ -4,6 +4,7 @@ variable "alb_name" {
 }
 variable "alb_logs_prefix" {
   type = string
+  description = "Log prefix for ALB logs stored in S3"
 }
 variable "listener_port" {
     type = number
@@ -27,5 +28,5 @@ variable "access_log_bucket" {
 }
 variable "vpc_id" {
   type = string
-  description = "VPC_id"
+  description = "VPC-id"
 }

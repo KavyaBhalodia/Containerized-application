@@ -13,7 +13,7 @@ resource "aws_instance" "bastion_host" {
   security_groups = var.bastion_host_sg
   key_name        = data.aws_key_pair.kavya.key_name
   tags = {
-    Name = "var.bastion_host_name"
+    Name = var.bastion_host_name
   }
 }
 

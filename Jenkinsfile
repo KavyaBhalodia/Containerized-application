@@ -10,7 +10,6 @@ pipeline{
         {
             steps{
                 script{
-                    
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     echo "${BRANCH_NAME}"
                     git branch: "${BRANCH_NAME}", 
@@ -37,25 +36,27 @@ pipeline{
             steps{
                 script{
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    
                     bat'''
                     cd terraformfiles
                     terraform plan 
                     '''
-                    
                 }
             }
         }
-        stage('terraform apply'){
-            steps{
-                script{
-                    bat'''
-                    cd terraformfiles
-                    terraform apply -auto-approve
-                    '''
-                }
-            }
-        }
+        // stage('terraform apply'){
+        //     steps{
+        //         script{
+        //             bat'''
+        //             cd terraformfiles
+        //             terraform apply -auto-approve
+        //             '''
+        //         }
+        //     }
+        // }
     }
+
+
+
+    
 }
 

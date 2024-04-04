@@ -4,8 +4,6 @@
 module "ecs" {
   source                 = "./modules/ecs"
   container_name         = "${local.env}-containerized_app_container"
-  base                   = 1
-  weight                 = 100
   cpu                    = 512
   memory                 = 1024
   container_port         = 3000
@@ -28,7 +26,7 @@ module "ecs" {
   private_subnets         = module.vpc.private_subnets
   ecs_sg_id               = [module.ecs_security_group.sg_id]
   role_arn                = data.aws_iam_role.my_ecstask_role.arn
-  region                  = "ap-south-1"
+  region                  = var.region
   ecs_cluster_id          = module.ecs_cluster.ecs_cluster_id
   policy_name             = "ecs-autoscaling-policy"
   target                  = 2
