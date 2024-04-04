@@ -24,7 +24,7 @@ variable "az" {
   description = "Avalaibility zone for subnets"
 }
 variable "public_rt_name" {
-    type=string
+  type=string
   description = "name of the route table"
 }
 variable "private_rt_name" {
@@ -32,8 +32,8 @@ variable "private_rt_name" {
   description = "name of the route table"
 }
 variable "ig_name" {
-    type = string
-    description = "name of the internet gateway"
+  type = string
+  description = "name of the internet gateway"
 }
 variable "NatGW_name" {
   type = string
