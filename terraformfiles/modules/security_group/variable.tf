@@ -3,7 +3,6 @@ variable "sg_name" {
   description = "Name of the Application load balancer"
   default = ""
 }
-
 variable "vpc_id" {
   type = string
   description = "VPC-id of the main VPC"
@@ -16,12 +15,9 @@ variable "ingress_rules" {
     cidr_blocks = optional(list(string))
     ipv6_cidr_blocks = optional(list(string))
     protocol=optional(string,"tcp")
-    
   }
-    
   ))
 }
-
 variable "egress_rules" {
   description = "list of values to assign to security groups"
   type = list(object({

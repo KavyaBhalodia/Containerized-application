@@ -11,7 +11,6 @@ module "vpc" {
   ig_name             = "${local.env}-Internet_gateway"
   NatGW_name          = "${local.env}-Nat_gateway"
   az                  = var.az
-
   providers = {
     aws = aws
   }

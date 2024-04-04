@@ -4,4 +4,5 @@ variable "ecr_repository" {
 }
 variable "region" {
   type = string
+  description = "region specified for ECR push commands"
 }

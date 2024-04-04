@@ -4,8 +4,6 @@
 module "ecs" {
   source                 = "./modules/ecs"
   container_name         = "${local.env}-containerized_app_container"
-  base                   = 1
-  weight                 = 100
   cpu                    = 512
   memory                 = 1024
   container_port         = 3000

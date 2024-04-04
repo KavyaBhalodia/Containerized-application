@@ -7,15 +7,6 @@ variable "container_name" {
   type = string
   description = "name of the container"
 }
-variable "base" {
-  type = number
-  description = "minimum number of tasks that should be running"
-  
-}
-variable "weight" {
-  type = number
-  description = "Additional tasks that needs to be launched when there is increase in demand"
-}
 variable "cpu" {
   type = number
   description = "maximum number of CPU resources in a container for a task are allowed"

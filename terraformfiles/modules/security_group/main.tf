@@ -1,10 +1,9 @@
 # Dynamic block for Security groups
-
 resource "aws_security_group" "sg" {
   name        = var.sg_name
   description = "Allow all traffic"
   vpc_id      = var.vpc_id
-  
+
   dynamic "ingress" {
     for_each = var.ingress_rules
     content {
@@ -24,7 +23,6 @@ resource "aws_security_group" "sg" {
       protocol = "all"
       cidr_blocks = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
-    
     }
   }
 }
