@@ -43,16 +43,16 @@ pipeline{
                 }
             }
         }
-        stage('terraform apply'){
-            steps{
-                script{
-                    bat'''
-                    cd terraformfiles
-                    terraform apply -auto-approve
-                    '''
-                }
-            }
-        }
+        // stage('terraform apply'){
+        //     steps{
+        //         script{
+        //             bat'''
+        //             cd terraformfiles
+        //             terraform apply -auto-approve
+        //             '''
+        //         }
+        //     }
+        // }
     }    
 }
 
