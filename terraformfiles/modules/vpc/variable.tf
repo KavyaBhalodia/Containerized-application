@@ -17,7 +17,6 @@ variable "public_subnet_name" {
 variable "private_subnet_name" {
     type = string
     description = "name of the private subnet"
-  
 }
 variable "az" {
   type        = list(string)

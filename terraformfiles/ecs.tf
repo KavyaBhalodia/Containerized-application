@@ -18,7 +18,7 @@ module "ecs" {
     DB_USER     = "${local.DB_USER}"
     DB_HOST     = "${local.DB_HOST}"
     DB_PORT     = "${local.DB_PORT}"
-    DB_DATABASE = "${local.DB_DATABASE}"
+    DB_DATABASE = "${local.DB_DATABASE_NAME}"
   }
 
   image_url               = module.ecr.image_url

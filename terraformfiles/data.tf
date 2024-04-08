@@ -33,10 +33,10 @@ data "aws_ssm_parameter" "db_database" {
 
 #local variables that refer to ssm parameters
 locals {
-  DB_HOST        = data.aws_ssm_parameter.host.name
-  DB_PASSWORD    = data.aws_ssm_parameter.password.name
-  DB_USER        = data.aws_ssm_parameter.username.name
-  DB_PORT        = data.aws_ssm_parameter.port.name
-  SESSION_SECRET = data.aws_ssm_parameter.secret.name
-  DB_DATABASE    = data.aws_ssm_parameter.db_database.name
+  DB_HOST          = data.aws_ssm_parameter.host.name
+  DB_PASSWORD      = data.aws_ssm_parameter.password.name
+  DB_USER          = data.aws_ssm_parameter.username.name
+  DB_PORT          = data.aws_ssm_parameter.port.name
+  SESSION_SECRET   = data.aws_ssm_parameter.secret.name
+  DB_DATABASE_NAME = data.aws_ssm_parameter.db_database.name
 }
