@@ -90,3 +90,17 @@ variable "target_group_arn_suffix" {
 variable "secret_variables" {
   description = "values for secret variables in task definition"
 }
+variable "log_stream_prefix" {
+  description = "value for log-stream"
+}
+variable "default_capacity_providers" {
+  type = list(object({
+    capacity_provider = string
+    base=number
+    weight=number
+  }))
+}
+variable "autoscaling_grp" {
+  type = bool
+  description = "Specify whether Autoscaling Group needed or not"
+}

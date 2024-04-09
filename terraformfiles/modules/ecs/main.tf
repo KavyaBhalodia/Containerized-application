@@ -52,7 +52,7 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
         options = {
           "awslogs-group"         = var.container_log_grp_name
           "awslogs-region"        = var.region
-          "awslogs-stream-prefix" = "alblogs"
+          "awslogs-stream-prefix" = var.log_stream_prefix
         }
       }
     }
@@ -87,8 +87,17 @@ resource "aws_ecs_service" "containerized_application_ecs_service" {
     subnets         = var.private_subnets
     security_groups = var.ecs_sg_id
   }
+    dynamic "capacity_provider_strategy" {
+    for_each = var.default_capacity_providers
+    content {
+      capacity_provider = capacity_provider_strategy.value.capacity_provider
+      base = capacity_provider_strategy.value.base
+      weight = capacity_provider_strategy.value.weight
+    }
+  }
 }
 resource "aws_appautoscaling_target" "ecs_target" {
+  count = var.autoscaling_grp ? 1 : 0
   max_capacity       = 3
   min_capacity       = 1
   resource_id        = "service/${var.cluster_name}/${aws_ecs_service.containerized_application_ecs_service.name}"
@@ -100,11 +109,12 @@ resource "aws_appautoscaling_target" "ecs_target" {
 
 #autoscaling for fargate tasks
 resource "aws_appautoscaling_policy" "ecs_policy" {
+  count = var.autoscaling_grp ? 1 : 0
   name               = var.policy_name
   policy_type        = "TargetTrackingScaling"
-  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
-  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+  resource_id        = aws_appautoscaling_target.ecs_target[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target[0].scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target[0].service_namespace
 
  target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
@@ -118,6 +128,7 @@ resource "aws_appautoscaling_policy" "ecs_policy" {
   
 }
 resource "aws_iam_role" "ECS-Autoscaling-role" {
+  
   name = "ECS-Autosclaing-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

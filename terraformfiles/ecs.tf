@@ -1,5 +1,4 @@
 
-
 #module for ECS
 module "ecs" {
   source                 = "./modules/ecs"
@@ -35,6 +34,13 @@ module "ecs" {
   cluster_name            = module.ecs_cluster.ecs_cluster_name
   alb_arn_suffix          = module.alb.alb_arn_suffix
   target_group_arn_suffix = module.alb.target_grp_arn_suffix
+  log_stream_prefix       = "container-logs"
+  default_capacity_providers = [
+    {
+      capacity_provider = "FARGATE", base = 1, weight = 100
+    }
+  ]
+  autoscaling_grp = true
   providers = {
     aws = aws
   }
