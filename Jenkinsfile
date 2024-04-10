@@ -24,6 +24,7 @@ pipeline{
                     //def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     //if("${BRANCH_NAME}" == 'dev')
                     //{
+                    
                     bat'''
                     cd terraformfiles
                     make init
