@@ -10,7 +10,7 @@ pipeline{
         {
             steps{
                 script{
-                    
+
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     echo "${BRANCH_NAME}"
                     git branch: "${BRANCH_NAME}", 
@@ -27,8 +27,7 @@ pipeline{
                     //{
                     
                     bat'''
-                    cd terraformfiles
-                    make init
+                    make steps
                     '''
                     //}
                 }
