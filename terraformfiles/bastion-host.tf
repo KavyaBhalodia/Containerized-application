@@ -8,12 +8,12 @@ resource "aws_instance" "bastion-host" {
   tags = {
     Name = "${local.env}-kavya-bastion-host"
   }
- 
+
 }
 
 #Key-pair for instance
 data "aws_key_pair" "kavya" {
-  
+
   key_name           = "kavya"
   include_public_key = true
 }

@@ -6,7 +6,7 @@ resource "aws_ecr_repository" "containerized-app-repository" {
   image_scanning_configuration {
     scan_on_push = true
   }
-  
+
 }
 
 #Null resource to push docker image

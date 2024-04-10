@@ -3,7 +3,7 @@ provider "aws" {
 }
 terraform {
   backend "s3" {
-  
+
     bucket  = "kavya-tfstate"
     key     = "state/terraform.tfstate"
     region  = "ap-south-1"

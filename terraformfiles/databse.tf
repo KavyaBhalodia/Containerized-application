@@ -1,6 +1,6 @@
 #RDS postgres database for form
 resource "aws_db_instance" "default" {
- 
+
   allocated_storage      = 20
   db_name                = "postgres"
   identifier             = "kavya-database"
@@ -20,7 +20,7 @@ resource "aws_db_instance" "default" {
 resource "aws_db_subnet_group" "subnet-grp" {
   name       = "main-grp"
   subnet_ids = aws_subnet.private-subnet.*.id
- 
+
 }
 
 #dynamo-db table for state-locking
