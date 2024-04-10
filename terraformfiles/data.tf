@@ -5,6 +5,7 @@ data "aws_iam_role" "my_ecstask_role" {
   provider = aws
 }
 
+
 #data source to get ssm parameters
 data "aws_ssm_parameter" "password" {
   name     = "/kavya/rds/db_password"
