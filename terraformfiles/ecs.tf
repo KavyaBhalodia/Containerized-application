@@ -32,21 +32,31 @@ locals {
         value = value
       }
   ]])
+    secret = flatten([
+    for name, value in var.secret_variable : [
+      {
+        name  = name
+        valueFrom = value
+      }
+  ]])
 }
 
 #ECS task definition 
 resource "aws_ecs_task_definition" "containerized-app-task" {
-  family                   = "service"
+  for_each = var.task_definitions
+  family                   = each.key
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
   memory                   = "2048"
   network_mode             = "awsvpc"
   execution_role_arn       = data.aws_iam_role.my-ecstask-role.arn
-
+  
 
   container_definitions = jsonencode([
     {
-      name      = "${local.env}-containerized-app-task"
+      
+      //name      = "${local.env}-containerized-app-task"
+      name=each.value
       image     = "${aws_ecr_repository.containerized-app-repository.repository_url}"
       cpu       = 1024
       memory    = 2048
@@ -58,6 +68,7 @@ resource "aws_ecs_task_definition" "containerized-app-task" {
         }
       ]
       environment = "${local.environment}"
+      secrets="${local.secret}"
       logConfiguration = {
         logDriver = "awslogs"
         options = {
@@ -66,7 +77,7 @@ resource "aws_ecs_task_definition" "containerized-app-task" {
           "awslogs-stream-prefix" = "alb-logs"
         }
       }
-
+      
     }
   ])
   runtime_platform {
@@ -86,24 +97,24 @@ resource "aws_cloudwatch_log_group" "container-logs" {
 }
 
 #ECS service
-resource "aws_ecs_service" "containerized-app-ecs-service" {
-  name            = "${local.env}-containerized-app-ecs-service"
-  cluster         = aws_ecs_cluster.containerized-app-ecs-cluster.id
-  task_definition = aws_ecs_task_definition.containerized-app-task.arn
-  desired_count   = 1
+# resource "aws_ecs_service" "containerized-app-ecs-service" {
+#   name            = "${local.env}-containerized-app-ecs-service"
+#   cluster         = aws_ecs_cluster.containerized-app-ecs-cluster.id
+#   task_definition = aws_ecs_task_definition.containerized-app-task[0].arn
+#   desired_count   = 1
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.containerized-app-tg.arn
-    container_name   = "${local.env}-containerized-app-task"
-    container_port   = 3000
-  }
+#   load_balancer {
+#     target_group_arn = aws_lb_target_group.containerized-app-tg.arn
+#     container_name   = "${local.env}-containerized-app-task"
+#     container_port   = 3000
+#   }
 
-  network_configuration {
-    subnets         = aws_subnet.private-subnet.*.id
-    security_groups = [aws_security_group.ecs-sg.id]
-  }
+#   network_configuration {
+#     subnets         = aws_subnet.private-subnet.*.id
+#     security_groups = [aws_security_group.ecs-sg.id]
+#   }
 
-}
+# }
 # resource "aws_appautoscaling_target" "ecs_target" {
 #   max_capacity       = 3
 #   min_capacity       = 1
@@ -170,6 +181,3 @@ resource "aws_ecs_service" "containerized-app-ecs-service" {
 #   policy_arn = data.aws_iam_policy.aws-ecs-policy.arn
 
 # }
-output "name" {
-  value = local.environment
-}

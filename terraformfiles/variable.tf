@@ -23,3 +23,9 @@ variable "ecr-repository" {
 variable "environment_variable" {
 
 }
+variable "secret_variable" {
+  
+}
+variable "task_definitions" {
+  type = map(string)
+}
