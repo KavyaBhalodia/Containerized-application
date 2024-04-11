@@ -6,9 +6,9 @@ resource "aws_vpc" "main" {
   tags = {
     Name = var.vpc_name
   }
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 #Public subnets

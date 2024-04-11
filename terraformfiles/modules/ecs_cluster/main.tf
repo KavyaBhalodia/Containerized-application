@@ -6,9 +6,9 @@ resource "aws_ecs_cluster" "containerized_app_ecs_cluster" {
     name  = "containerInsights"
     value = "enabled"
   }  
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 #ECS_capacity_provider
