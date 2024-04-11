@@ -1,3 +1,4 @@
+#Makefile
 init plan:
 	@cd terraformfiles && terraform $@ 
 apply:
