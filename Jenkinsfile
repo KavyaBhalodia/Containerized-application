@@ -27,33 +27,31 @@ pipeline{
                     //{
                     
                     bat'''
-                    make steps
+                    make init
                     '''
                     //}
                 }
             }
         }
-        // stage('terraform plan'){
-        //     steps{
-        //         script{
-        //             def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-        //             bat'''
-        //             cd terraformfiles
-        //             terraform plan 
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage('terraform apply'){
-        //     steps{
-        //         script{
-        //             bat'''
-        //             cd terraformfiles
-        //             terraform apply -auto-approve
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('terraform plan'){
+            steps{
+                script{
+                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    bat'''
+                    make plan
+                    '''
+                }
+            }
+        }
+        stage('terraform apply'){
+            steps{
+                script{
+                    bat'''
+                    make apply
+                    '''
+                }
+            }
+        }
     }    
 }
 

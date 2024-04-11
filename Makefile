@@ -1,5 +1,4 @@
-steps:
-	@cd terraformfiles && terraform init
-	@cd terraformfiles && terraform plan
-	
-	
+init plan:
+	@cd terraformfiles && terraform $@ 
+apply:
+	@cd terraformfiles && terraform $@ -auto-approve
