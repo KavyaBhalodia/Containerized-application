@@ -22,38 +22,44 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                    //def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    //if("${BRANCH_NAME}" == 'dev')
-                    //{
-                    
+                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    if("${BRANCH_NAME}" == 'dev')
+                    {
                     bat'''
                     make init
                     '''
-                    //}
+                    }
+                }
+            }
+        }
+        stage('ECR push')
+        {
+            steps{
+                script{
+                    bat'''
+                    make ecr_push
+                    '''
                 }
             }
         }
         stage('terraform plan'){
             steps{
                 script{
-                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     bat'''
-                    make ecr_push
                     make plan
                     '''
                 }
             }
         }
-        stage('terraform apply'){
-            steps{
-                script{
-                    bat'''
-                    make ecr_push
-                    make apply
-                    '''
-                }
-            }
-        }
+        // stage('terraform apply'){
+        //     steps{
+        //         script{
+        //             bat'''
+        //             make apply
+        //             '''
+        //         }
+        //     }
+        // }
     }    
 }
 
