@@ -13,28 +13,27 @@ data "aws_caller_identity" "current" {
 }
 
 #Null resource to push docker image
-resource "null_resource" "docker_packaging" {
-  provisioner "local-exec" {
-    command     = <<EOT
-    $GIT_COMMIT_ID = git rev-parse --short HEAD
-    docker login
-    docker build -t containerized-application ../code
-    docker login --username AWS --password (aws ecr get-login-password --region ${var.region}) 831794387446.dkr.ecr.${var.region}.amazonaws.com
-    docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}"
-    docker push "${aws_ecr_repository.containerized_application_repository.repository_url}"
-    docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"
-    docker push "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"   
-  EOT
-    interpreter = ["PowerShell", "-Command"]
-  }
+# resource "null_resource" "docker_packaging" {
+#   provisioner "local-exec" {
+#     command     = <<EOT
+#     $GIT_COMMIT_ID = git rev-parse --short HEAD
+#     docker login
+#     docker build -t containerized-application ../code
+#     docker login --username AWS --password (aws ecr get-login-password --region ${var.region}) 831794387446.dkr.ecr.${var.region}.amazonaws.com
+#     docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}"
+#     docker push "${aws_ecr_repository.containerized_application_repository.repository_url}"
+#     docker tag containerized-application "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"
+#     docker push "${aws_ecr_repository.containerized_application_repository.repository_url}:$GIT_COMMIT_ID"   
+#   EOT
+#     interpreter = ["PowerShell", "-Command"]
+#   }
 
-  triggers = {
-    "run_at" = timestamp()
-  }
+#   triggers = {
+#     "run_at" = timestamp()
+#   }
 
-  depends_on = [
-    aws_ecr_repository.containerized_application_repository
-  ]
-}
-
+#   depends_on = [
+#     aws_ecr_repository.containerized_application_repository
+#   ]
+# }
 

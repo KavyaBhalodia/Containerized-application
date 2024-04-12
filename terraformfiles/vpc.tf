@@ -15,4 +15,6 @@ module "vpc" {
     aws = aws
   }
 }
-
+output "region" {
+  value = var.region
+}

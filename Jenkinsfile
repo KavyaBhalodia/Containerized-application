@@ -38,6 +38,7 @@ pipeline{
                 script{
                     // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     bat'''
+                    make ecr_push
                     make plan
                     '''
                 }
@@ -47,6 +48,7 @@ pipeline{
             steps{
                 script{
                     bat'''
+                    make ecr_push
                     make apply
                     '''
                 }
