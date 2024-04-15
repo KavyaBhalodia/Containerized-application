@@ -42,3 +42,6 @@ locals {
   db_username      = data.aws_ssm_parameter.username.value
   db_password      = data.aws_ssm_parameter.password.name
 }
+output "region" {
+  value = var.region
+}
