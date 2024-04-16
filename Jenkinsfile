@@ -36,7 +36,7 @@ pipeline{
             steps{
                 script{
                     bat'''
-                    make ecr_push
+                    make ecr_build_push
                     '''
                 }
             }
