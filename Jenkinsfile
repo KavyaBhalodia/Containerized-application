@@ -50,15 +50,15 @@ pipeline{
                 }
             }
         }
-        stage('terraform apply'){
-            steps{
-                script{
-                    bat'''
-                    make apply
-                    '''
-                }
-            }
-        }
+        // stage('terraform apply'){
+        //     steps{
+        //         script{
+        //             bat'''
+        //             make apply
+        //             '''
+        //         }
+        //     }
+        // }
     }    
 }
 

@@ -9,17 +9,17 @@ apply:
 
 ecr_build_push: login build tag push
 login:
-	@echo Logging in ECR Repository
+	@echo ----------Logging in ECR Repository $(repository_url)----------
 	@aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $(repository_url)
 build:
-	@echo Building Docker image
+	@echo ----------Building Docker image $(GIT_COMMIT_ID)----------
 	@docker build -t containerized-application code/
 tag:
-	@echo Tagging Docker image
+	@echo ----------Tagging Docker image with $(GIT_COMMIT_ID)----------
 	@docker tag containerized-application $(repository_url)
 	@docker tag containerized-application $(repository_url):$(GIT_COMMIT_ID)
 push:
-	@echo Pushing Docker image into ECR Repository
+	@echo ----------Pushing Docker image $(GIT_COMMIT_ID) into ECR Repository $(repository_url)----------
 	@docker push $(repository_url)
 	@docker push $(repository_url):$(GIT_COMMIT_ID)
 
