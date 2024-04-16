@@ -1,6 +1,6 @@
 #Makefile
 GIT_COMMIT_ID=$(shell git rev-parse --short HEAD)
-repository_url=$(shell cd terraformfiles && terraform output repository_url)
+repository_url=$(shell cd terraformfiles && terraform output -raw repository_url)
 
 init plan:
 	@cd terraformfiles && terraform $@ 
