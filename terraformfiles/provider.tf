@@ -1,16 +1,13 @@
 provider "aws" {
   region = "ap-south-1"
 }
-provider "aws" {
-  alias  = "sandbox"
-  region = "us-west-2"
-}
 terraform {
   backend "s3" {
-    profile = "sandbox"
-    bucket  = "kavya-bucket-test"
+
+    bucket  = "kavya-tfstate"
     key     = "state/terraform.tfstate"
-    region  = "us-west-2"
+    region  = "ap-south-1"
+    encrypt = true
     //dynamodb_table = "containerized-application-tf-lockID"
   }
 }

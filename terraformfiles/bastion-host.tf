@@ -1,6 +1,6 @@
 #Bastion Host for connecting Database
 resource "aws_instance" "bastion-host" {
-  ami             = "ami-0895022f3dac85884"
+  ami             = "ami-009e46eef82e25fef"
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.public-subnet[0].id
   security_groups = [aws_security_group.bastion-host-sg.id]
@@ -8,12 +8,12 @@ resource "aws_instance" "bastion-host" {
   tags = {
     Name = "${local.env}-kavya-bastion-host"
   }
-  provider = aws.sandbox
+
 }
 
 #Key-pair for instance
 data "aws_key_pair" "kavya" {
-  provider           = aws.sandbox
+
   key_name           = "kavya"
   include_public_key = true
 }

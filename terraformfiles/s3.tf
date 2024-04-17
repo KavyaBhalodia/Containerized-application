@@ -1,10 +1,10 @@
 #S3 bucket for application load-balancer logs
 resource "aws_s3_bucket" "containerized-app-alb-logs" {
-  bucket = "containerized-app-alb-logs"
+  bucket = "containerized-app-alb-logs-kavya-1"
   tags = {
     Name = "containerized-app-alb-logs"
   }
-  provider = aws.sandbox
+
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
@@ -13,14 +13,14 @@ resource "aws_s3_bucket_public_access_block" "example" {
   block_public_policy     = false
   ignore_public_acls      = false
   restrict_public_buckets = false
-  provider                = aws.sandbox
+
 }
 
 #S3 bucket-policy for accessing ALB logs
 resource "aws_s3_bucket_policy" "s3-bucket-policy" {
-  bucket   = aws_s3_bucket.containerized-app-alb-logs.id
-  policy   = data.aws_iam_policy_document.s3-bucket-policy.json
-  provider = aws.sandbox
+  bucket = aws_s3_bucket.containerized-app-alb-logs.id
+  policy = data.aws_iam_policy_document.s3-bucket-policy.json
+
 }
 data "aws_iam_policy_document" "s3-bucket-policy" {
 
