@@ -10,14 +10,14 @@ module "ecs" {
   container_log_grp_name = "${local.env}-containerized_app_log_grp"
   ecs_service_name       = "${local.env}-containerized_app_service"
   environment_variable = {
-    SESSION_SECRET = "${local.SESSION_SECRET}"
+    SESSION_SECRET = "${local.SESSION_SECRET.name}"
   }
   secret_variables = {
-    DB_PASSWORD = "${local.DB_PASSWORD}"
-    DB_USER     = "${local.DB_USER}"
-    DB_HOST     = "${local.DB_HOST}"
-    DB_PORT     = "${local.DB_PORT}"
-    DB_DATABASE = "${local.DB_DATABASE_NAME}"
+    DB_PASSWORD = "${local.DB_PASSWORD.name}"
+    DB_USER     = "${local.DB_USER.name}"
+    DB_HOST     = "${local.DB_HOST.name}"
+    DB_PORT     = "${local.DB_PORT.name}"
+    DB_DATABASE = "${local.DB_DATABASE_NAME.name}"
   }
 
   image_url               = module.ecr.image_url

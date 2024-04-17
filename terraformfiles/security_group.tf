@@ -76,7 +76,7 @@ module "rds_security_group" {
   }
 }
 
-#module for bastion-host security group
+# module for bastion-host security group
 module "bastion_host_security_group" {
   source  = "./modules/security_group"
   vpc_id  = module.vpc.vpc_id
