@@ -23,11 +23,3 @@ terraform {
     //dynamodb_table = "containerized-application-tf-lockID"
   }
 }
-
-provider "docker" {
-  host = "npipe:////.//pipe//docker_engine"
-}
-
-provider "external" {
-
-}
