@@ -1,12 +1,12 @@
 #Makefile
 GIT_COMMIT_ID=$(shell git rev-parse --short HEAD)
 repository_url=$(shell cd terraformfiles && terraform output -raw repository_url)
-
+path=terraformfiles
 
 init plan:
-	@cd terraformfiles && terraform $@ 
+	@cd $(path) && terraform $@ 
 apply:
-	@cd terraformfiles && terraform apply -auto-approve
+	@cd $(path) && terraform apply -auto-approve
 
 ecr_build_push: login build tag push
 login:

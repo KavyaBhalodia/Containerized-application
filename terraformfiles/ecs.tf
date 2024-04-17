@@ -9,6 +9,7 @@ module "ecs" {
   host_port              = 3000
   container_log_grp_name = "${local.env}-containerized_app_log_grp"
   ecs_service_name       = "${local.env}-containerized_app_service"
+  environment_tag = "${local.env}"
   environment_variable = {
     SESSION_SECRET = "${local.SESSION_SECRET.name}"
   }
@@ -25,7 +26,6 @@ module "ecs" {
   private_subnets         = module.vpc.private_subnets
   ecs_sg_id               = [module.ecs_security_group.sg_id]
   role_arn                = data.aws_iam_role.my_ecstask_role.arn
-  region                  = var.region
   ecs_cluster_id          = module.ecs_cluster.ecs_cluster_id
   policy_name             = "ecs-autoscaling-policy"
   target                  = 2

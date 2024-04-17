@@ -55,10 +55,6 @@ variable "role_arn" {
   description = "Role arn for ECS Tasks"
 }
 
-variable "region" {
-  type = string
-  description = "Region for resources"
-}
 variable "policy_name" {
   type = string
   description = "Policy for ECS"
@@ -103,4 +99,8 @@ variable "default_capacity_providers" {
 variable "autoscaling_grp" {
   type = bool
   description = "Specify whether Autoscaling Group needed or not"
+}
+variable "environment_tag" {
+  type = string
+  description = "Tag for aws log group"
 }

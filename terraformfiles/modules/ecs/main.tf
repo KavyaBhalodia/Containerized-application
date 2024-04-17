@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = var.container_log_grp_name
-          "awslogs-region"        = var.region
+          "awslogs-region"        = data.aws_region.current_region
           "awslogs-stream-prefix" = var.log_stream_prefix
         }
       }
@@ -67,7 +67,7 @@ resource "aws_cloudwatch_log_group" "container_logs" {
   name=var.container_log_grp_name
 
   tags = {
-    Environment = "Dev"
+    Environment = var.environment_tag
     Application = "service"
   }
 }
