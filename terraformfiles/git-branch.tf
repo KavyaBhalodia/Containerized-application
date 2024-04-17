@@ -11,6 +11,3 @@ locals {
 locals {
   is_windows = length(regexall("^[a-z]:", lower(abspath(path.root)))) > 0
 }
-output "branch" {
-  value = local.env
-}
