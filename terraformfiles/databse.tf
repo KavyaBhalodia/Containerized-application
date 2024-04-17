@@ -1,41 +1,14 @@
-#RDS postgres database for form
-resource "aws_db_instance" "default" {
-
-  allocated_storage      = 20
-  db_name                = "postgres"
-  identifier             = "kavya-database"
-  engine                 = "postgres"
-  engine_version         = "16.1"
-  instance_class         = "db.t3.micro"
-  username               = "postgres"
-  password               = "kavyabhalodia"
-  skip_final_snapshot    = true
-  storage_type           = "gp2"
-  db_subnet_group_name   = aws_db_subnet_group.subnet-grp.name
-  vpc_security_group_ids = [aws_security_group.rds-sg.id]
-  availability_zone      = "ap-south-1a"
+#module for database
+module "database" {
+  source          = "./modules/database"
+  db_identifier   = "kavya-database"
+  password        = local.DB_PASSWORD.value
+  username        = local.DB_USER.value
+  subnet_grp_name = "postgres_subnet_grp"
+  public_subnets  = module.vpc.public_subnets
+  rds_sg          = [module.rds_security_group.sg_id]
+  az              = var.az[0]
+  providers = {
+    aws = aws
+  }
 }
-
-#subnet-grp for database
-resource "aws_db_subnet_group" "subnet-grp" {
-  name       = "main-grp"
-  subnet_ids = aws_subnet.private-subnet.*.id
-
-}
-
-#dynamo-db table for state-locking
-# resource "aws_dynamodb_table" "conainerized-app-dynamodb-table" {
-#   name           = "containerized-app-tf-lockID"
-#   billing_mode   = "PROVISIONED"
-#   read_capacity  = 20
-#   write_capacity = 20
-#   hash_key       = "id"
-#   attribute {
-#     name = "id"
-#     type = "S"
-#   }
-#   tags = {
-#     Name = "containerized-app-tf-lockID"
-#   }
-#   
-# }

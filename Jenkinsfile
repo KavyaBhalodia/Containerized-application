@@ -1,4 +1,4 @@
-//Jenkinsfile                 
+             
 pipeline{
     agent any
     environment{
@@ -9,7 +9,7 @@ pipeline{
         stage('git checkout')
         {
             steps{
-                script{  
+                script{
                     def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     echo "${BRANCH_NAME}"
                     git branch: "${BRANCH_NAME}", 
@@ -25,34 +25,40 @@ pipeline{
                     if("${BRANCH_NAME}" == 'dev')
                     {
                     bat'''
-                    cd terraformfiles
-                    terraform init -reconfigure
+                    make init
                     '''
                     }
+                }
+            }
+        }
+        stage('ECR push')
+        {
+            steps{
+                script{
+                    bat'''
+                    make ecr_build_push
+                    '''
                 }
             }
         }
         stage('terraform plan'){
             steps{
                 script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     bat'''
-                    cd terraformfiles
-                    terraform plan 
+                    make plan
                     '''
                 }
             }
         }
-        stage('terraform apply'){
-            steps{
-                script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    bat'''
-                    cd terraformfiles
-                    terraform apply -auto-approve
-                    '''
-                }
-            }
-        }
-    }
+        // stage('terraform apply'){
+        //     steps{
+        //         script{
+        //             bat'''
+        //             make apply
+        //             '''
+        //         }
+        //     }
+        // }
+    }    
 }
+

@@ -1,42 +1,18 @@
-
-#Application load balancer
-resource "aws_lb" "containerized-app-alb" {
-  name                       = "${local.env}-containerized-app-alb"
-  internal                   = false
-  load_balancer_type         = "application"
-  security_groups            = [aws_security_group.load-balancer-sg.id]
-  subnets                    = aws_subnet.public-subnet.*.id
-  enable_deletion_protection = false
-  access_logs {
-    bucket  = aws_s3_bucket.containerized-app-alb-logs.id
-    prefix  = "alblogs"
-    enabled = true
+#module for Application load balancer
+module "alb" {
+  source            = "./modules/alb"
+  alb_name          = "${local.env}-containerized-app-alb"
+  listener_port     = 80
+  target_group_name = "${local.env}-containerized-app-tg"
+  alb_sg            = [module.alb_security_group.sg_id]
+  public_subnets    = module.vpc.public_subnets
+  access_log_bucket = module.s3.access_log_bucket
+  vpc_id            = module.vpc.vpc_id
+  alb_logs_prefix   = "alblogs"
+  providers = {
+    aws = aws
   }
-
 }
-
-#Load balacer listener
-resource "aws_lb_listener" "containerized-app-listener" {
-  load_balancer_arn = aws_lb.containerized-app-alb.arn
-  port              = 80
-  default_action {
-    target_group_arn = aws_lb_target_group.containerized-app-tg.arn
-    type             = "forward"
-  }
-
-}
-
-#Targert group
-resource "aws_lb_target_group" "containerized-app-tg" {
-  name        = "${local.env}-containerized-app-tg"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = aws_vpc.main.id
-  target_type = "ip"
-
-}
-
-
 
 
 
