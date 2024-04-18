@@ -9,7 +9,7 @@ module "ecs" {
   host_port              = 3000
   container_log_grp_name = "${local.env}-containerized_app_log_grp"
   ecs_service_name       = "${local.env}-containerized_app_service"
-  environment_tag = "${local.env}"
+  environment_tag        = local.env
   environment_variable = {
     SESSION_SECRET = "${local.SESSION_SECRET.name}"
   }

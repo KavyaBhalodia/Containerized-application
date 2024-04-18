@@ -95,5 +95,3 @@ resource "aws_nat_gateway" "nat_gateway" {
   depends_on = [aws_eip.nat_gateway_eip, aws_subnet.public_subnet]
 }
 
-
-
