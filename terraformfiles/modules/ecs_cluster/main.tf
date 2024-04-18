@@ -15,5 +15,6 @@ resource "aws_ecs_cluster" "containerized_app_ecs_cluster" {
 resource "aws_ecs_cluster_capacity_providers" "containerized_app_ecs_capacity_provider" {
   cluster_name       = aws_ecs_cluster.containerized_app_ecs_cluster.name
   capacity_providers = ["FARGATE","FARGATE_SPOT"]
+  
 
 }

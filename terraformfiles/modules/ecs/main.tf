@@ -90,9 +90,8 @@ resource "aws_ecs_service" "containerized_application_ecs_service" {
     dynamic "capacity_provider_strategy" {
     for_each = var.default_capacity_providers
     content {
-      capacity_provider = capacity_provider_strategy.value.capacity_provider
-      base = capacity_provider_strategy.value.base
-      weight = capacity_provider_strategy.value.weight
+      capacity_provider = capacity_provider_strategy.key
+      base = capacity_provider_strategy.value
     }
   }
 }
