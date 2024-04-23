@@ -31,16 +31,16 @@ pipeline{
                 }
             }
         }
-        stage('ECR push')
-        {
-            steps{
-                script{
-                    bat'''
-                    make ecr_build_push
-                    '''
-                }
-            }
-        }
+        // stage('ECR push')
+        // {
+        //     steps{
+        //         script{
+        //             bat'''
+        //             make ecr_build_push
+        //             '''
+        //         }
+        //     }
+        // }
         stage('terraform plan'){
             steps{
                 script{
@@ -55,6 +55,16 @@ pipeline{
                 script{
                     bat'''
                     make apply
+                    '''
+                }
+            }
+        }
+        stage('ECR push')
+        {
+            steps{
+                script{
+                    bat'''
+                    make ecr_build_push
                     '''
                 }
             }
