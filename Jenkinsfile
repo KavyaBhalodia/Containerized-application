@@ -41,34 +41,33 @@ pipeline{
         //         }
         //     }
         // }
-        // stage('terraform plan'){
-        //     steps{
-        //         script{
-        //             bat'''
-        //             make plan
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage('terraform apply'){
-        //     steps{
-        //         script{
-        //             bat'''
-        //             make apply
-        //             '''
-        //         }
-        //     }
-        // }
-        // stage('ECR push')
-        // {
-        //     steps{
-        //         script{
-        //             bat'''
-        //             make ecr_build_push
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('terraform plan'){
+            steps{
+                script{
+                    bat'''
+                    make plan
+                    '''
+                }
+            }
+        }
+        stage('terraform apply'){
+            steps{
+                script{
+                    bat'''
+                    make apply
+                    '''
+                }
+            }
+        }
+        stage('ECR push')
+        {
+            steps{
+                script{
+                    bat'''
+                    make ecr_build_push
+                    '''
+                }
+            }
+        }
     } 
-       
 }
