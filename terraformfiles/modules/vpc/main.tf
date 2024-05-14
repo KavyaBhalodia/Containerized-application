@@ -66,6 +66,7 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
+
 #Private route table association
 resource "aws_route_table_association" "private_rt_association" {
   count          = length(var.private_subnet_cidr)
