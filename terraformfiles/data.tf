@@ -34,12 +34,14 @@ data "aws_ssm_parameter" "db_database" {
 
 #local variables that refer to ssm parameters
 locals {
-  DB_HOST          = data.aws_ssm_parameter.host.name
-  DB_PASSWORD      = data.aws_ssm_parameter.password.name
-  DB_USER          = data.aws_ssm_parameter.username.name
-  DB_PORT          = data.aws_ssm_parameter.port.name
-  SESSION_SECRET   = data.aws_ssm_parameter.secret.name
-  DB_DATABASE_NAME = data.aws_ssm_parameter.db_database.name
-  db_username      = data.aws_ssm_parameter.username.value
-  db_password      = data.aws_ssm_parameter.password.name
+  DB_HOST          = data.aws_ssm_parameter.host
+  DB_PASSWORD      = data.aws_ssm_parameter.password
+  DB_USER          = data.aws_ssm_parameter.username
+  DB_PORT          = data.aws_ssm_parameter.port
+  SESSION_SECRET   = data.aws_ssm_parameter.secret
+  DB_DATABASE_NAME = data.aws_ssm_parameter.db_database
+
+}
+output "repository_url" {
+  value = module.ecr.repository_url
 }

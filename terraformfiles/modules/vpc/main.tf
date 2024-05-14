@@ -6,9 +6,9 @@ resource "aws_vpc" "main" {
   tags = {
     Name = var.vpc_name
   }
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 #Public subnets
@@ -95,5 +95,34 @@ resource "aws_nat_gateway" "nat_gateway" {
   depends_on = [aws_eip.nat_gateway_eip, aws_subnet.public_subnet]
 }
 
+#Default NACL group for subnets
+resource "aws_default_network_acl" "default_nacl" {
+  default_network_acl_id = aws_vpc.main.default_network_acl_id
 
+  dynamic ingress {
+    for_each = var.ingress_rules
+    content {
+      from_port = ingress.value.from_port
+      to_port = ingress.value.to_port
+      protocol = try(coalesce(ingress.value.protocol, "tcp", null))
+      rule_no = ingress.value.rule_no
+      action = ingress.value.action
+      cidr_block = ingress.value.cidr_block
+    }
+    
+  }
+dynamic egress {
+    for_each = var.egress_rules
+    content {
+      from_port = egress.value.from_port
+      to_port = egress.value.to_port
+      protocol = try(coalesce(egress.value.protocol, "tcp", null))
+      rule_no = egress.value.rule_no
+      action = egress.value.action
+      cidr_block = egress.value.cidr_block
 
+    }
+    
+  }
+ 
+}

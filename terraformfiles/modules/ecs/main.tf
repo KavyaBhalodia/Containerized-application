@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "containerized_application_task" {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = var.container_log_grp_name
-          "awslogs-region"        = var.region
+          "awslogs-region"        = data.aws_region.current_region.name
           "awslogs-stream-prefix" = var.log_stream_prefix
         }
       }
@@ -67,7 +67,7 @@ resource "aws_cloudwatch_log_group" "container_logs" {
   name=var.container_log_grp_name
 
   tags = {
-    Environment = "Dev"
+    Environment = var.environment_tag
     Application = "service"
   }
 }
@@ -90,9 +90,9 @@ resource "aws_ecs_service" "containerized_application_ecs_service" {
     dynamic "capacity_provider_strategy" {
     for_each = var.default_capacity_providers
     content {
-      capacity_provider = capacity_provider_strategy.value.capacity_provider
-      base = capacity_provider_strategy.value.base
-      weight = capacity_provider_strategy.value.weight
+      capacity_provider = capacity_provider_strategy.key
+      weight = capacity_provider_strategy.value
+      
     }
   }
 }

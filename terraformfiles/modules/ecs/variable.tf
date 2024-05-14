@@ -55,10 +55,6 @@ variable "role_arn" {
   description = "Role arn for ECS Tasks"
 }
 
-variable "region" {
-  type = string
-  description = "Region for resources"
-}
 variable "policy_name" {
   type = string
   description = "Policy for ECS"
@@ -93,14 +89,23 @@ variable "secret_variables" {
 variable "log_stream_prefix" {
   description = "value for log-stream"
 }
-variable "default_capacity_providers" {
-  type = list(object({
-    capacity_provider = string
-    base=number
-    weight=number
-  }))
-}
+
 variable "autoscaling_grp" {
   type = bool
   description = "Specify whether Autoscaling Group needed or not"
 }
+variable "environment_tag" {
+  type = string
+  description = "Tag for aws log group"
+}
+# variable "default_capacity_providers" {
+#   type = list(object({
+#     capacity_provider=string
+#     base=number
+#   }))
+# }
+variable "default_capacity_providers" {
+  type = map(string)
+}
+
+

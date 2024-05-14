@@ -21,24 +21,31 @@ pipeline{
         stage('terraform init'){
             steps{
                 script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
-                    if("${BRANCH_NAME}" == 'dev')
-                    {
+                    // def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+                    // if("${BRANCH_NAME}" == 'dev')
+                    // {
                     bat'''
-                    cd terraformfiles
-                    terraform init -reconfigure
+                    make init
                     '''
-                    }
+                    //}
                 }
             }
         }
+        // stage('ECR push')
+        // {
+        //     steps{
+        //         script{
+        //             bat'''
+        //             make ecr_build_push
+        //             '''
+        //         }
+        //     }
+        // }
         stage('terraform plan'){
             steps{
                 script{
-                    def BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
                     bat'''
-                    cd terraformfiles
-                    terraform plan 
+                    make plan
                     '''
                 }
             }
@@ -47,12 +54,23 @@ pipeline{
             steps{
                 script{
                     bat'''
-                    cd terraformfiles
-                    terraform apply -auto-approve
+                    make apply
+                    '''
+                }
+            }
+        }
+        stage('ECR push')
+        {
+            steps{
+                script{
+                    bat'''
+                    make ecr_build_push
                     '''
                 }
             }
         }
     }    
 }
+
+//test
 

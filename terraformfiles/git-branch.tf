@@ -4,11 +4,10 @@ data "external" "git_branch" {
 }
 #local block store current git-branch
 locals {
-  env = data.external.git_branch.result["branch"]
+  //env = data.external.git_branch.result["branch"]
+  env = data.external.git_branch.result["branch"] == "main" ? "prod" : "dev"
+
 }
 locals {
   is_windows = length(regexall("^[a-z]:", lower(abspath(path.root)))) > 0
-}
-output "branch" {
-  value = local.env
 }
