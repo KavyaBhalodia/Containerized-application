@@ -1,4 +1,5 @@
 #Makefile
+
 GIT_COMMIT_ID=$(shell git rev-parse --short HEAD)
 # repository_url=$(shell cd terraformfiles && terraform output -raw repository_url)
 path=terraformfiles
@@ -27,7 +28,7 @@ push:
 
 
 
-    
+
     
 
 
